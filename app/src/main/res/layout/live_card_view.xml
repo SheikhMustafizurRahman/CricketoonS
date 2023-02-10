@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+
+    <androidx.cardview.widget.CardView
+
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:paddingStart="20dp"
+            android:paddingHorizontal="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="serif-monospace"
+                android:text="LIVE MATCH"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="#292525"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:gravity="center"/>
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/instagram_stories"
+                android:layout_gravity="center"
+                android:layout_marginStart="170dp"/>
+
+        </LinearLayout>
+
+        <!--Your card view content here-->
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
