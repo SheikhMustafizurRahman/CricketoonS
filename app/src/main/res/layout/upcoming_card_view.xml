@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:fontFamily="serif-monospace"
-                android:text="LIVE MATCH"
+                android:text="Upcoming Match"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#292525"
                 android:textSize="20sp"
@@ -41,7 +41,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/instagram_stories"
                 android:layout_gravity="center"
-                android:layout_marginStart="170dp"/>
+                android:layout_marginStart="110dp"/>
 
         </LinearLayout>
         <LinearLayout

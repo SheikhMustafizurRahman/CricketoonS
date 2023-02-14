@@ -1,4 +1,4 @@
-package com.example.cricketoons.database
+package com.example.cricketoons.model.database
 
 import android.content.Context
 import androidx.room.Database
@@ -9,7 +9,7 @@ import com.example.cricketoons.model.fixtures.FixtureData
 
 @Database(
     entities = [FixtureData::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class CricketDB : RoomDatabase() {

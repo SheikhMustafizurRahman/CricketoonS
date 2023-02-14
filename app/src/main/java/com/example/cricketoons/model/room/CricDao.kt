@@ -15,4 +15,7 @@ interface CricDao {
 
     @Query("SELECT * FROM fixtureTable")
     fun getFixture():LiveData<List<FixtureData>>
+
+    @Query("select * from fixtureTable where status='Finished' order by starting_at desc limit 10")
+    fun readUpcoming():LiveData<List<FixtureData>>
 }

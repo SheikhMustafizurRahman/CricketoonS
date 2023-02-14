@@ -1,4 +1,3 @@
-/*
 package com.example.cricketoons.util
 
 import android.app.Application
@@ -14,4 +13,4 @@ class MyContext : Application() {
         super.onCreate()
         instanceContext = this
     }
-}*/
+}
