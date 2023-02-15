@@ -1,6 +1,6 @@
-package com.example.cricketoons.model.teams
+package com.example.cricketoons.model.fixtureWithTeam
 
-data class TeamData(
+data class Localteam(
     var code: String?,
     var country_id: Int?,
     var id: Int?,
@@ -8,6 +8,5 @@ data class TeamData(
     var name: String?,
     var national_team: Boolean?,
     var resource: String?,
-    var squad: List<Squad>?,
     var updated_at: String?
 )

@@ -1,4 +1,4 @@
-package com.example.cricketoons.model.fixtures
+package com.example.cricketoons.model.roomFixtures
 
 import androidx.room.Entity
 import androidx.room.Ignore

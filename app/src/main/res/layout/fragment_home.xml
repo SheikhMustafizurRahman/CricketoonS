@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabMode="scrollable"
-            app:tabPadding="3dp"
+            app:tabPadding="4dp"
             android:background="#D35656"
             app:tabIndicatorColor="#2A022C"
             app:tabIndicatorHeight="3.5dp"

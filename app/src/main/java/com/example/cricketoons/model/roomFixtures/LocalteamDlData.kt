@@ -1,4 +1,4 @@
-package com.example.cricketoons.model.fixtures
+package com.example.cricketoons.model.roomFixtures
 
 data class LocalteamDlData(
     val overs: String?,

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="180dp">
 
     <androidx.cardview.widget.CardView
 
@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:paddingStart="20dp"
             android:paddingHorizontal="10dp"
             android:orientation="horizontal">
@@ -35,25 +35,24 @@
                 android:typeface="serif"
                 android:gravity="center"/>
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/instagram_stories"
-                android:layout_gravity="center"
-                android:layout_marginStart="110dp"/>
+            <TextView
+                android:id="@+id/countdown_timer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="dfhasodf" />
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="50dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="40dp"
             android:orientation="horizontal"
             android:weightSum="3">
 
             <LinearLayout
-                android:layout_width="20dp"
-                android:layout_height="60dp"
+                android:layout_width="30dp"
+                android:layout_height="70dp"
                 android:layout_weight="1"
                 android:layout_marginStart="25dp"
                 android:orientation="vertical">
@@ -61,13 +60,13 @@
                     android:id="@+id/team1flag"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     android:src="@drawable/instagram_stories"
                     android:layout_gravity="center" />
                 <TextView
                     android:id="@+id/team1Score"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Team-1"
                     android:gravity="center"/>
             </LinearLayout>
@@ -83,8 +82,8 @@
                 />
 
             <LinearLayout
-                android:layout_width="20dp"
-                android:layout_height="60dp"
+                android:layout_width="30dp"
+                android:layout_height="70dp"
                 android:layout_weight="1"
                 android:layout_marginStart="90dp"
                 android:orientation="vertical">
@@ -92,20 +91,19 @@
                     android:id="@+id/team2flag"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     android:src="@drawable/instagram_stories"
                     android:layout_gravity="center" />
                 <TextView
                     android:id="@+id/team2Score"
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Team-2"
                     android:gravity="center"/>
             </LinearLayout>
-
         </LinearLayout>
 
-        <!--Your card view content here-->
+
 
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -2,10 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="HomeScreen" />
+        android:icon="@drawable/home"
+        android:title="@string/homescreen" />
     <item
-        android:id="@+id/bookmark"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:title="SecondScreen" />
+        android:id="@+id/team"
+        android:icon="@drawable/cricketbat"
+        android:title="@string/teams" />
+    <item
+        android:id="@+id/searchplayer"
+        android:icon="@drawable/searchlogo"
+        android:title="@string/search" />
 </menu>

@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
         } else Log.d("HomeFragment", "Network not available")
         val viewPager = binding.homeViewPager
         val tabLayout = binding.tabMode
-
+        viewModel.getTeamsFromAPIStoreInRoom()
         val adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         viewPager.adapter = adapter
 

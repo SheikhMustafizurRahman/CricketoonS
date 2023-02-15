@@ -1,16 +1,16 @@
-package com.example.cricketoons.model.database
+package com.example.cricketoons.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.cricketoons.model.room.CricDao
-import com.example.cricketoons.model.fixtures.FixtureData
+import com.example.cricketoons.model.roomFixtures.FixtureData
+import com.example.cricketoons.model.roomTeams.TeamData
 
 @Database(
-    entities = [FixtureData::class],
-    version = 2,
-    exportSchema = false
+    entities = [FixtureData::class,TeamData::class],
+    version = 3
 )
 abstract class CricketDB : RoomDatabase() {
     abstract fun cricketDao(): CricDao

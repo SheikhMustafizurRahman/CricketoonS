@@ -6,8 +6,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.cricketoons.model.database.CricketDB
-import com.example.cricketoons.model.fixtures.FixtureData
+import com.example.cricketoons.database.CricketDB
+import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
+import com.example.cricketoons.model.roomFixtures.FixtureData
+import com.example.cricketoons.model.roomTeams.TeamData
 import com.example.cricketoons.repository.CricRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,26 +19,22 @@ private const val TAG = "ViewModel"
 class ViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _fixtureLive = MutableLiveData<List<FixtureData>>()
+    private val _teams=MutableLiveData<List<TeamData>>()
     private val fixtureDataList: LiveData<List<FixtureData>>
     val fixtureLive: LiveData<List<FixtureData>> = _fixtureLive
+    val teams:LiveData<List<TeamData>> =_teams
     val repository: CricRepo
 
     init {
         val dao = CricketDB.getDatabase(application).cricketDao()
         repository = CricRepo(dao)
         fixtureDataList = repository.readFixtureData
-/*        val list =
-        val liveDataList = MutableLiveData<List<FixtureData>>().apply {
-            value = list
-        }*/
-        getFixtureFromAPI()
     }
 
     fun getFixtureFromAPI() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _fixtureLive.postValue(repository.getAllFixture())
-                Log.d("list", fixtureLive.value?.size.toString())
                 fixtureLive.value?.let {
                     Log.d(TAG, "getFixtureFromAPI: called")
                     repository.insertFixture(it)
@@ -46,7 +44,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
-    suspend fun readUpcoming_matches():List<FixtureData> = repository.readUpcoming()
+    suspend fun readUpcoming_matches():List<FixtureDataWteam> = repository.readUpcoming()
 
 /*    fun getLiveFromAPI(): LiveData<List<FixtureData>> {
         try {
@@ -57,5 +55,18 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         }
         return fixtureLive
     }*/
+    fun getTeamsFromAPIStoreInRoom(){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _teams.postValue(repository.getTeams())
+                teams.value?.let{
+                    Log.d(TAG, "Storing Data in Room: called")
+                    repository.insertTeamInRoom(it)
+                }
+            }catch (e:Exception){
+                Log.e(TAG, "getTeamsFromAPIandStoreInRoom:${e.message}", )
+            }
+        }
+    }
 
 }

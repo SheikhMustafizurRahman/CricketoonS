@@ -1,4 +1,4 @@
-package com.example.cricketoons.model.teams
+package com.example.cricketoons.model.roomTeams
 
 data class Squad(
     var battingstyle: String?,

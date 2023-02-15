@@ -7,16 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cricketoons.adapter.LiveMatchAdapter
 import com.example.cricketoons.adapter.UpcomingMatchAdapter
 import com.example.cricketoons.databinding.FragmentLiveAndUpcomingBinding
+import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
 import com.example.cricketoons.util.Constants.Companion.checkConnectivity
 import com.example.cricketoons.viewmodel.ViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LiveAndUpcomingFragment : Fragment() {
     private var _binding: FragmentLiveAndUpcomingBinding? = null
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
     private val viewModel: ViewModel by viewModels()
 
     override fun onCreateView(
@@ -29,48 +35,44 @@ class LiveAndUpcomingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        try {
-            binding.swipeRefreshLayout.setOnRefreshListener {
-                if (checkConnectivity(requireContext())) {
-                    Log.d("TAG", "onViewCreated: NetWorkAvailable")
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                binding.swipeRefreshLayout.setOnRefreshListener {
+                    if (checkConnectivity(requireContext())) {
+                        Log.d("TAG", "onViewCreated: NetWorkAvailable")
+                    }
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
-                binding.swipeRefreshLayout.isRefreshing = false
+                binding.liveMatchRv.layoutManager = LinearLayoutManager(requireContext())
+                binding.liveMatchRv.setHasFixedSize(true)
+                binding.upcomingMatchRv.layoutManager = LinearLayoutManager(requireContext())
+                binding.upcomingMatchRv.setHasFixedSize(true)
+                //displayLive()
+                displayUpcoming()
+            } catch (e: Exception) {
+                Log.d("LiveUpdateFragment", "onViewCreated: ${e.message}")
             }
-
-            Log.d("LiveAndUpcomingFragments", "Currently She said Yes")
-            binding.liveMatchRv.layoutManager = LinearLayoutManager(requireContext())
-            binding.liveMatchRv.setHasFixedSize(true)
-            binding.upcomingMatchRv.layoutManager = LinearLayoutManager(requireContext())
-            binding.upcomingMatchRv.setHasFixedSize(true)
-            //displayLive()
-            displayUpcoming()
-            Log.d("Yahoo", "fdsfsd: ")
-        } catch (e: Exception) {
-            Log.d("LiveUpdate", "onViewCreated: ${e.message}")
         }
     }
 
-    private fun displayUpcoming() {
-/*        var liveDataList: MutableLiveData<List<FixtureData>>
-        viewModel.viewModelScope.launch(Dispatchers.IO) {
-            val list = viewModel.readUpcoming_matches()
-            liveDataList = MutableLiveData<List<FixtureData>>().apply {
-                value = list
+    private suspend fun displayUpcoming() {
+        val list = viewModel.readUpcoming_matches()
+        withContext(Dispatchers.Main) {
+            val liveDataList: MutableLiveData<List<FixtureDataWteam>> =
+                MutableLiveData<List<FixtureDataWteam>>().apply {
+                    value = list
+                }
+            liveDataList.observe(viewLifecycleOwner) {
+                val recyclerViewState = binding.upcomingMatchRv.layoutManager?.onSaveInstanceState()
+                // Restore state
+                binding.upcomingMatchRv.layoutManager?.onRestoreInstanceState(recyclerViewState)
+                val adapter = UpcomingMatchAdapter(requireContext(), viewModel)
+                adapter.setDataset(it)
+                binding.upcomingMatchRv.adapter = adapter
             }
-        }*/
-        viewModel.fixtureLive.observe(viewLifecycleOwner){
-            val recyclerViewState = binding.upcomingMatchRv.layoutManager?.onSaveInstanceState()
-            // Restore state
-            binding.upcomingMatchRv.layoutManager?.onRestoreInstanceState(recyclerViewState)
-//            binding.upcomingMatchRv.layoutManager=LinearLayoutManager(requireContext())
-            val adapter = UpcomingMatchAdapter(requireContext(), viewModel)
-            adapter.setDataset(it)
-            Log.d("TAG2", "DisplayItem:$adapter ")
-            binding.upcomingMatchRv.adapter = adapter
-            Log.d("TAG3", "DisplayItem:$adapter ")
         }
     }
+
 
     private fun displayLive() {
         val recyclerViewState = binding.liveMatchRv.layoutManager?.onSaveInstanceState()

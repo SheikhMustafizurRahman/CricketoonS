@@ -1,7 +1,6 @@
-package com.example.cricketoons.model.fixtures
+package com.example.cricketoons.model.roomFixtures
 
 import androidx.room.Ignore
-import com.example.cricketoons.model.fixtures.Link
 
 data class Meta(
     val current_page: Int?,

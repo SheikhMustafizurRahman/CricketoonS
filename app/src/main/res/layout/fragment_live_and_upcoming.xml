@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -18,14 +19,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight=".3"
-                android:scrollbars="horizontal" />
+                android:scrollbars="vertical"
+                tools:listitem="@layout/live_card_view"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/upcoming_match_rv"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight=".7"
-                android:scrollbars="horizontal"/>
+                android:scrollbars="horizontal"
+                tools:listitem="@layout/upcoming_card_view"/>
 
         </LinearLayout>
 

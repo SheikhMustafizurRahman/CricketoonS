@@ -5,13 +5,17 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.cricketoons.model.fixtures.FixtureData
+import com.example.cricketoons.model.roomFixtures.FixtureData
+import com.example.cricketoons.model.roomTeams.TeamData
 
 @Dao
 interface CricDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFixture(fixtureData: List<FixtureData>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTeam(teamData: List<TeamData>)
 
     @Query("SELECT * FROM fixtureTable")
     fun getFixture():LiveData<List<FixtureData>>
