@@ -4,13 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.room.CricDao
 import com.example.cricketoons.model.roomFixtures.FixtureData
 import com.example.cricketoons.model.roomTeams.TeamData
 
 @Database(
-    entities = [FixtureData::class,TeamData::class],
-    version = 3
+    entities = [FixtureData::class,TeamData::class,Squad::class],
+    version = 4
 )
 abstract class CricketDB : RoomDatabase() {
     abstract fun cricketDao(): CricDao

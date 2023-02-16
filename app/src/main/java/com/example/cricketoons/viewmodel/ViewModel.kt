@@ -68,5 +68,19 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
     }
+    fun getTeamsFromRoom():LiveData<List<TeamData>> =repository.readTeamData
+
+    fun getSquadFromAPIStoreInRoom(teamId:Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                //fetchind Squad data from api using the TeamID
+                val currentSquad=repository.fetchRecentSquadFromAPI(teamId)
+                repository.insertSquadInRoom(currentSquad)
+
+            }catch (e:Exception){
+                Log.e(TAG, "getTeamsFromRoom:${e.message}", )
+            }
+        }
+    }
 
 }
