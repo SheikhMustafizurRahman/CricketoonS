@@ -12,6 +12,7 @@ class CricRepo(private val cricDao: CricDao) {
 
     val readFixtureData: LiveData<List<FixtureData>> = cricDao.getFixture()
     val readTeamData:LiveData<List<TeamData>> =cricDao.getTeamsFromRoom()
+    val readSquadData:LiveData<List<Squad>> =cricDao.readSquaPlayersFromRoom()
 
 
     suspend fun readUpcoming():List<FixtureDataWteam> = CrickMonkAPI.getUpcomingMatch().data

@@ -29,4 +29,8 @@ interface CricDao {
 
     @Query("select * from teams where national_team= true order by name")
     fun getTeamsFromRoom():LiveData<List<TeamData>>
+
+    @Query("select * from squadTable order by country_id")
+    fun readSquaPlayersFromRoom():LiveData<List<Squad>>
+
 }

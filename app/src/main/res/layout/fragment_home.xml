@@ -22,20 +22,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabMode="scrollable"
             app:tabPadding="4dp"
-            android:background="#D35656"
-            app:tabIndicatorColor="#2A022C"
+            app:tabIndicatorColor="#610F65"
             app:tabIndicatorHeight="3.5dp"
-            app:tabSelectedTextColor="@color/black"
-            app:tabTextColor="@color/black"
-            app:tabTextAppearance="@style/MaterialAlertDialog.Material3.Title.Panel"
-            />
+           />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/homeViewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tabMode"

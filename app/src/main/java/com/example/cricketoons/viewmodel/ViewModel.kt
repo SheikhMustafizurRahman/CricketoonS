@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.cricketoons.database.CricketDB
+import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
 import com.example.cricketoons.model.roomFixtures.FixtureData
 import com.example.cricketoons.model.roomTeams.TeamData
@@ -69,6 +70,8 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
     fun getTeamsFromRoom():LiveData<List<TeamData>> =repository.readTeamData
+
+    fun getALlSquadPlayerFromRoom():LiveData<List<Squad>> =repository.readSquadData
 
     fun getSquadFromAPIStoreInRoom(teamId:Int){
         viewModelScope.launch(Dispatchers.IO) {

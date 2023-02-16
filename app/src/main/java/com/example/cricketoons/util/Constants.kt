@@ -8,7 +8,8 @@ import java.util.*
 class Constants {
     companion object {
         const val BASE_URL = "https://cricket.sportmonks.com/api/v2.0/"
-        const val API_KEY="ZX3EzsbPwkWCnMd7lX16FylS8OrGwHASkLXjUEX5mJep90cTuU95y4HK4N8Z"
+        const val API_KEY="LSby1fTszwqffsTqFROKl0VUF3Jq5EkQrNalJPR9WLMtolgqJRzlTlm45sMl"
+        //ZX3EzsbPwkWCnMd7lX16FylS8OrGwHASkLXjUEX5mJep90cTuU95y4HK4N8Z
         const val NUM_HOME_TABS = 2
         const val TIMES_UP="Time's up!"
 
@@ -20,10 +21,9 @@ class Constants {
             return  networkInfo!=null && networkInfo.isConnected
         }
 
-        fun getCurrentDate():String{
+        fun getCurrentDate(): String {
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            val currentDate = sdf.format(Calendar.getInstance().time)
-            return currentDate
+            return sdf.format(Calendar.getInstance().time)
         }
     }
 }
