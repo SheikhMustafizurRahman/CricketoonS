@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
 
-    val TabArray = arrayOf(
+    private val tabArray = arrayOf(
         "Live", "Recent")
 
     private var _binding: FragmentHomeBinding? = null
@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = TabArray[position]
+            tab.text = tabArray[position]
         }.attach()
     }
 

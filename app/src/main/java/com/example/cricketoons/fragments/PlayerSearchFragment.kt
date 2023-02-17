@@ -74,5 +74,4 @@ class PlayerSearchFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-
 }

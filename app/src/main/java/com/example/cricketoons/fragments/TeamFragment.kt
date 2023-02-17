@@ -21,7 +21,7 @@ class TeamFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 _binding= FragmentTeamBinding.inflate(inflater,container,false)
     return binding.root
     }
@@ -29,7 +29,7 @@ _binding= FragmentTeamBinding.inflate(inflater,container,false)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
             try{
-                viewModel.getTeamsFromAPIStoreInRoom()
+//                viewModel.getTeamsFromAPIStoreInRoom()
                 binding.teamsRv.layoutManager = LinearLayoutManager(requireContext())
                 binding.teamsRv.setHasFixedSize(true)
 

@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_teamFragment_to_playerFragment"
             app:destination="@id/playerFragment" />
+        <action
+            android:id="@+id/action_teamFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/playerFragment"
@@ -56,5 +59,16 @@
         <action
             android:id="@+id/action_searchFragment_to_teamFragment"
             app:destination="@id/teamFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamDetailFragment"
+        android:name="com.example.cricketoons.fragments.TeamDetailFragment"
+        android:label="TeamDetailFragment" >
+        <argument
+            android:name="teamLogo"
+            app:argType="string" />
+        <argument
+            android:name="teamId"
+            app:argType="integer" />
     </fragment>
 </navigation>

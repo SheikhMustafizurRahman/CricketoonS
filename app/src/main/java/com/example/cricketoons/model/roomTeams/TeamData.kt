@@ -20,7 +20,7 @@ data class TeamData(
 ){
     constructor() : this(
         null,
-        0,
+        null,
         0,
         null,
         null,
