@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.MatchDetailFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/match_graphic_card"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingStart="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="serif-monospace"
+                android:gravity="center"
+                android:text="Recent Match"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="#292525"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:typeface="serif" />
+
+            <TextView
+                android:id="@+id/countdown_timer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="dfhasodf"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="25dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/teamFlagH"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/instagram_stories" />
+
+                <TextView
+                    android:id="@+id/team1Score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Team-1" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/vs"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="90dp"
+                android:layout_weight=".3"
+                android:scaleType="fitXY"
+                android:src="@drawable/versus" />
+
+            <LinearLayout
+                android:layout_width="30dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="90dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/teamflagA"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/instagram_stories" />
+
+                <TextView
+                    android:id="@+id/team2Score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Team-2" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabModeMD"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="500dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/match_graphic_card"
+        app:tabIndicatorHeight="3.5dp"
+        app:tabPadding="6dp" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/detailViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabModeMD" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,30 +1,26 @@
 package com.example.cricketoons.repository
 
 import androidx.lifecycle.LiveData
+import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
 import com.example.cricketoons.model.room.CricDao
 import com.example.cricketoons.model.roomCountry.Country
-import com.example.cricketoons.model.roomFixtures.FixtureData
 import com.example.cricketoons.model.roomLeague.League
 import com.example.cricketoons.model.roomSeason.Season
-import com.example.cricketoons.model.roomStages.Stage
+import com.example.cricketoons.model.roomStages.Stages
 import com.example.cricketoons.model.roomTeams.TeamData
 import com.example.cricketoons.model.roomVenue.Venue
 import com.example.cricketoons.network.RetrofitInstance.Companion.CrickMonkAPI
 
 class CricRepo(private val cricDao: CricDao) {
 
-    val readFixtureData: LiveData<List<FixtureData>> = cricDao.getFixture()
     val readTeamData: LiveData<List<TeamData>> = cricDao.getTeamsFromRoom()
     val readSquadData: LiveData<List<Squad>> = cricDao.readSquadPlayersFromRoom()
 
 
     suspend fun readUpcoming(): List<FixtureDataWteam> = CrickMonkAPI.getUpcomingMatch().data
 
-    suspend fun getAllFixture(): List<FixtureData> {
-        return CrickMonkAPI.getFixture().data
-    }
 
     suspend fun getTeams(): List<TeamData> {
         return CrickMonkAPI.getTeamFromAPI().data
@@ -50,7 +46,7 @@ class CricRepo(private val cricDao: CricDao) {
         cricDao.insertLeague(leagueList)
     }
 
-    private suspend fun insertStageFromAPI(stageList: List<Stage>) {
+    private suspend fun insertStageFromAPI(stageList: List<Stages>) {
         cricDao.insertStages(stageList)
     }
 
@@ -60,10 +56,6 @@ class CricRepo(private val cricDao: CricDao) {
 
     private suspend fun insertCounty(countryList: List<Country>) {
         cricDao.insertCountry(countryList)
-    }
-
-    suspend fun insertFixture(fixtureData: List<FixtureData>) {
-        cricDao.insertFixture(fixtureData)
     }
 
     suspend fun insertTeamInRoom(teamData: List<TeamData>) {
@@ -78,8 +70,20 @@ class CricRepo(private val cricDao: CricDao) {
         return cricDao.readCountryNameByID(country_id)
     }
 
+    suspend fun checkIfTeamExistInRoom(team_id:Int):Int{
+        return cricDao.checkIfTeamExistInRoom(team_id)
+    }
+    suspend fun getTeamLogoFromRoom(team_id:Int):String{
+        return cricDao.getTeamLogoFromRoom(team_id)
+    }
+
+    suspend fun getTeamNameFromRoom(team_id:Int):String{
+        return cricDao.getTeamNameFromRoom(team_id)
+    }
+
     suspend fun readSquadByCountryID(teamId: Int): List<Squad>? {
         return CrickMonkAPI.fetchRecentSquadFromAPI(teamId).data.squad
     }
 
+    suspend fun fetchRecentMatchesFromAPI(): List<Fixture> = CrickMonkAPI.getRecentMatch().data
 }

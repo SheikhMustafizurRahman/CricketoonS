@@ -56,7 +56,7 @@ class LiveAndUpcomingFragment : Fragment() {
     }
 
     private suspend fun displayUpcoming() {
-        val list = viewModel.readUpcoming_matches()
+        val list = viewModel.readUpcomingMatches()
         withContext(Dispatchers.Main) {
             val liveDataList: MutableLiveData<List<FixtureDataWteam>> =
                 MutableLiveData<List<FixtureDataWteam>>().apply {

@@ -15,19 +15,21 @@ import com.bumptech.glide.Glide
 import com.example.cricketoons.R
 import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
 import com.example.cricketoons.util.Constants
-import com.example.cricketoons.util.Constants.Companion.TIMES_UP
+import com.example.cricketoons.util.Constants.Companion.MATCH_DAY
 import com.example.cricketoons.viewmodel.ViewModel
 import java.text.SimpleDateFormat
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-const val TAG = "UpcomingMatchAdapter"
+private const val TAG = "UpcomingMatchAdapter"
 
 class UpcomingMatchAdapter(val context: Context, viewModel: ViewModel) :
     RecyclerView.Adapter<UpcomingMatchAdapter.UpcomingViewHolder>() {
 
     private var upcoming = emptyList<FixtureDataWteam>()
+    private var timerIsRunning = false
+    private var countdownTimer: CountDownTimer? = null
 
     class UpcomingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val teamOne: TextView = view.findViewById(R.id.team1Score)
@@ -66,8 +68,9 @@ class UpcomingMatchAdapter(val context: Context, viewModel: ViewModel) :
         val formattedDate = zonedDateTime.format(formatter)
         val timeDiff = getTimeDifferenceInMillis(formattedDate, currentDate)
         Log.d(TAG, "countdownTimer: $timeDiff")
-        val countdownTimer = object : CountDownTimer(timeDiff, 1000) {
+        countdownTimer = object : CountDownTimer(timeDiff, 1000) {
             override fun onTick(millisUntilFinished: Long) {
+                timerIsRunning = true
                 val secondsRemaining = millisUntilFinished / 1000
                 val timerText = String.format(
                     "%02d days, %02d:%02d:%02d",
@@ -81,10 +84,12 @@ class UpcomingMatchAdapter(val context: Context, viewModel: ViewModel) :
             }
 
             override fun onFinish() {
-                countdownTime.text = TIMES_UP
+                countdownTime.text = MATCH_DAY
+                timerIsRunning = false
             }
         }
-        countdownTimer.start()
+        countdownTimer?.start()
+
     }
 
     fun setDataset(it: List<FixtureDataWteam>) {

@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cricketoons.R
-import com.example.cricketoons.model.roomFixtures.Fixture
+import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.viewmodel.ViewModel
 
 class LiveMatchAdapter(val context: Context, val viewModel: ViewModel) : RecyclerView.Adapter<LiveMatchAdapter.LiveViewHolder>() {

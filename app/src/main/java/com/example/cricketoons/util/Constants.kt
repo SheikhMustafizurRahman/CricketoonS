@@ -11,7 +11,7 @@ class Constants {
         const val API_KEY="LSby1fTszwqffsTqFROKl0VUF3Jq5EkQrNalJPR9WLMtolgqJRzlTlm45sMl"
         //ZX3EzsbPwkWCnMd7lX16FylS8OrGwHASkLXjUEX5mJep90cTuU95y4HK4N8Z
         const val NUM_HOME_TABS = 2
-        const val TIMES_UP="Time's up!"
+        const val MATCH_DAY="Match Day"
 
 
 

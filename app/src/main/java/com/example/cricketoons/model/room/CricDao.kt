@@ -7,18 +7,14 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.roomCountry.Country
-import com.example.cricketoons.model.roomFixtures.FixtureData
 import com.example.cricketoons.model.roomLeague.League
 import com.example.cricketoons.model.roomSeason.Season
-import com.example.cricketoons.model.roomStages.Stage
+import com.example.cricketoons.model.roomStages.Stages
 import com.example.cricketoons.model.roomTeams.TeamData
 import com.example.cricketoons.model.roomVenue.Venue
 
 @Dao
 interface CricDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFixture(fixtureData: List<FixtureData>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTeam(teamData: List<TeamData>)
@@ -37,13 +33,7 @@ interface CricDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertVenue(venueList: List<Venue>)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertStages(stageList: List<Stage>)
-
-    @Query("SELECT * FROM fixtureTable")
-    fun getFixture():LiveData<List<FixtureData>>
-
-    @Query("select * from fixtureTable where status='Finished' order by starting_at desc limit 10")
-    fun readUpcoming():LiveData<List<FixtureData>>
+    suspend fun insertStages(stageList: List<Stages>)
 
     @Query("select * from teams where national_team= true order by name")
     fun getTeamsFromRoom():LiveData<List<TeamData>>
@@ -56,4 +46,12 @@ interface CricDao {
 
     @Query("select * from squadTable where id=:country_id")
     fun readSquadByCountryID(country_id:Int):LiveData<List<Squad>>
+
+    @Query("SELECT COUNT(*) FROM teams WHERE id = :id")
+    suspend fun checkIfTeamExistInRoom(id: Int): Int
+
+    @Query("SELECT name FROM teams WHERE id = :id")
+    suspend fun getTeamNameFromRoom(id: Int): String
+    @Query("SELECT image_path FROM teams WHERE id = :id")
+    suspend fun getTeamLogoFromRoom(id: Int): String
 }

@@ -7,19 +7,18 @@ import androidx.room.RoomDatabase
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.room.CricDao
 import com.example.cricketoons.model.roomCountry.Country
-import com.example.cricketoons.model.roomFixtures.FixtureData
 import com.example.cricketoons.model.roomLeague.League
 import com.example.cricketoons.model.roomSeason.Season
-import com.example.cricketoons.model.roomStages.Stage
+import com.example.cricketoons.model.roomStages.Stages
 import com.example.cricketoons.model.roomTeams.TeamData
 import com.example.cricketoons.model.roomVenue.Venue
 
 @Database(
-    entities = [FixtureData::class, TeamData::class,
+    entities = [TeamData::class,
         Squad::class, Country::class,
-        Stage::class, Venue::class,
+        Stages::class, Venue::class,
         Season::class, League::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class CricketDB : RoomDatabase() {

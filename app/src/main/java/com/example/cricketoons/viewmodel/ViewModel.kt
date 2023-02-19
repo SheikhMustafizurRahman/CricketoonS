@@ -7,9 +7,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.cricketoons.database.CricketDB
+import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
-import com.example.cricketoons.model.roomFixtures.FixtureData
 import com.example.cricketoons.model.roomTeams.TeamData
 import com.example.cricketoons.repository.CricRepo
 import kotlinx.coroutines.Dispatchers
@@ -19,11 +19,9 @@ private const val TAG = "ViewModel"
 
 class ViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _fixtureLive = MutableLiveData<List<FixtureData>>()
     private val _teams = MutableLiveData<List<TeamData>>()
 
     //private val fixtureDataList: LiveData<List<FixtureData>>
-    private val fixtureLive: LiveData<List<FixtureData>> = _fixtureLive
     private val teams: LiveData<List<TeamData>> = _teams
     private val repository: CricRepo
     private var flag: Boolean = true
@@ -34,31 +32,9 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         //fixtureDataList = repository.readFixtureData
     }
 
-    fun getFixtureFromAPI() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                _fixtureLive.postValue(repository.getAllFixture())
-                fixtureLive.value?.let {
-                    Log.d(TAG, "getFixtureFromAPI: called")
-                    repository.insertFixture(it)
-                }
-            } catch (e: Exception) {
-                Log.d(TAG, "error found: $e")
-            }
-        }
-    }
+    suspend fun readUpcomingMatches(): List<FixtureDataWteam> = repository.readUpcoming()
 
-    suspend fun readUpcoming_matches(): List<FixtureDataWteam> = repository.readUpcoming()
 
-    /*    fun getLiveFromAPI(): LiveData<List<FixtureData>> {
-            try {
-                _fixtureLive.postValue(CrickMonkAPI.getLiveScore().data)
-                Log.d("list", fixtureLive.value?.size.toString())
-            } catch (e: Exception) {
-                Log.d(TAG, "getLiveFromAPI: $e")
-            }
-            return fixtureLive
-        }*/
     fun getTeamsFromAPIStoreInRoom() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -69,7 +45,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
                     repository.insertTeamInRoom(it)
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "getTeamsFromAPIandStoreInRoom:${e.message}")
+                Log.e(TAG, "getTeamsFromAPIAndStoreInRoom:${e.message}")
             }
         }
     }
@@ -80,6 +56,10 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun getCountryNameFromRoom(country_id: Int): String =
         repository.readCountryNameFromRoom(country_id)
+
+    suspend fun checkIfTeamExistInRoom(teamId: Int):Int=repository.checkIfTeamExistInRoom(teamId)
+    suspend fun getTeamNameFromRoom(teamId: Int):String=repository.getTeamNameFromRoom(teamId)
+    suspend fun getTeamLogoFromRoom(teamId: Int):String=repository.getTeamLogoFromRoom(teamId)
 
     fun getSquadFromAPIStoreInRoom(teamId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -100,4 +80,6 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     suspend fun insertCountryLeagueSeasonVenueStageFromAPIT0Room(){
         repository.fetchCountrySeasonStageLeagueVenueFromAPI()
     }
+
+    suspend fun readRecentMatches(): List<Fixture> =repository.fetchRecentMatchesFromAPI()
 }
