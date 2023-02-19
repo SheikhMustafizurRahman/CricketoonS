@@ -86,4 +86,6 @@ class CricRepo(private val cricDao: CricDao) {
     }
 
     suspend fun fetchRecentMatchesFromAPI(): List<Fixture> = CrickMonkAPI.getRecentMatch().data
+
+    suspend fun fetchLive():List<Fixture> = CrickMonkAPI.getlive().data
 }

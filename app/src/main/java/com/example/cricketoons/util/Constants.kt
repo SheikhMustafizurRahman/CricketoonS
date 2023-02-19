@@ -2,7 +2,11 @@ package com.example.cricketoons.util
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class Constants {
@@ -24,6 +28,12 @@ class Constants {
         fun getCurrentDate(): String {
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
             return sdf.format(Calendar.getInstance().time)
+        }
+        fun convertDateTimeToDateString(dateTime: String): String? {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
+            val date = inputFormat.parse(dateTime)
+            val outputFormat = SimpleDateFormat("dd MMM, yyyy", Locale.getDefault())
+            return date?.let { outputFormat.format(it) }
         }
     }
 }

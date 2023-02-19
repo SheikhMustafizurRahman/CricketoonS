@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cricketoons.adapter.LiveMatchAdapter
 import com.example.cricketoons.adapter.UpcomingMatchAdapter
 import com.example.cricketoons.databinding.FragmentLiveAndUpcomingBinding
+import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
 import com.example.cricketoons.util.Constants.Companion.checkConnectivity
 import com.example.cricketoons.viewmodel.ViewModel
@@ -47,7 +48,7 @@ class LiveAndUpcomingFragment : Fragment() {
                 binding.liveMatchRv.setHasFixedSize(true)
                 binding.upcomingMatchRv.layoutManager = LinearLayoutManager(requireContext())
                 binding.upcomingMatchRv.setHasFixedSize(true)
-                //displayLive()
+                displayLive()
                 displayUpcoming()
             } catch (e: Exception) {
                 Log.d("LiveUpdateFragment", "onViewCreated: ${e.message}")
@@ -73,13 +74,22 @@ class LiveAndUpcomingFragment : Fragment() {
         }
     }
 
-
-    private fun displayLive() {
-        val recyclerViewState = binding.liveMatchRv.layoutManager?.onSaveInstanceState()
-        // Restore state
-        binding.liveMatchRv.layoutManager?.onRestoreInstanceState(recyclerViewState)
-        val adapter = LiveMatchAdapter(requireContext(), viewModel)
-        Log.d("TAGx", "DisplayItem: ")
-        binding.liveMatchRv.adapter = adapter
+    private suspend fun displayLive() {
+        val fixture = viewModel.getLive()
+        withContext(Dispatchers.Main) {
+            val liveDataList: MutableLiveData<List<Fixture>> =
+                MutableLiveData<List<Fixture>>().apply {
+                    value = fixture
+                }
+            liveDataList.observe(viewLifecycleOwner){
+                val recyclerViewState = binding.liveMatchRv.layoutManager?.onSaveInstanceState()
+                // Restore state
+                binding.liveMatchRv.layoutManager?.onRestoreInstanceState(recyclerViewState)
+                val adapter = LiveMatchAdapter(requireContext(), viewModel)
+                Log.d("TAGx", "DisplayItem: ")
+                adapter.setDataset(it)
+                binding.liveMatchRv.adapter = adapter
+            }
+        }
     }
 }

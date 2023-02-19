@@ -82,4 +82,5 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     suspend fun readRecentMatches(): List<Fixture> =repository.fetchRecentMatchesFromAPI()
+    suspend fun getLive():List<Fixture> = repository.fetchLive()
 }

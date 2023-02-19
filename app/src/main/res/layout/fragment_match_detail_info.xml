@@ -7,7 +7,7 @@
 
     <!-- Series Name -->
     <TextView
-        android:id="@+id/series_name"
+        android:id="@+id/series"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Series"
@@ -15,6 +15,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/series_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Series Name"
@@ -36,6 +37,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/matchdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="23 Feb - 28 Feb, 2023"
@@ -57,6 +59,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/venue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="The Oval, London"
@@ -78,6 +81,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/toss"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Toss won by India and chose to bat first"
