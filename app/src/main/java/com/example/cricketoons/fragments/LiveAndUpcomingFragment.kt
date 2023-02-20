@@ -81,13 +81,14 @@ class LiveAndUpcomingFragment : Fragment() {
                 MutableLiveData<List<Fixture>>().apply {
                     value = fixture
                 }
-            liveDataList.observe(viewLifecycleOwner){
+            liveDataList.observe(viewLifecycleOwner) {
                 val recyclerViewState = binding.liveMatchRv.layoutManager?.onSaveInstanceState()
                 // Restore state
                 binding.liveMatchRv.layoutManager?.onRestoreInstanceState(recyclerViewState)
                 val adapter = LiveMatchAdapter(requireContext(), viewModel)
                 Log.d("TAGx", "DisplayItem: ")
                 adapter.setDataset(it)
+                binding.liveMatchRv.visibility = if (adapter.itemCount == 0) View.GONE else View.VISIBLE
                 binding.liveMatchRv.adapter = adapter
             }
         }

@@ -2,11 +2,7 @@ package com.example.cricketoons.util
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.os.Build
-import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class Constants {
@@ -16,6 +12,7 @@ class Constants {
         //ZX3EzsbPwkWCnMd7lX16FylS8OrGwHASkLXjUEX5mJep90cTuU95y4HK4N8Z
         const val NUM_HOME_TABS = 2
         const val MATCH_DAY="Match Day"
+        const val TIME_OUT:Long=60
 
 
 

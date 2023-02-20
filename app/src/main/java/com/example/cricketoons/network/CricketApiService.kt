@@ -48,7 +48,7 @@ interface CricketApiService {
 
     @GET("fixtures")
     suspend fun getUpcomingMatch(
-        @Query("filter[starts_between]") duration: String = "2023-02-17,2023-03-18",
+        @Query("filter[starts_between]") duration: String = "2023-02-21,2023-03-18",
         @Query("include") params: String = "localteam,visitorteam",
         @Query("sort") date:String= "starting_at",
         @Query("api_token") api_token: String = API_KEY
@@ -56,7 +56,7 @@ interface CricketApiService {
 
     @GET("fixtures")
     suspend fun getRecentMatch(
-        @Query("filter[starts_between]") duration: String = "2023-02-01,2023-02-15",
+        @Query("filter[starts_between]") duration: String = "2023-02-01,2023-02-08",
         @Query("include") params: String = "scoreboards,runs,balls,batting,bowling,lineup",
         @Query("sort") date:String= "starting_at",
         @Query("api_token") api_token: String = API_KEY

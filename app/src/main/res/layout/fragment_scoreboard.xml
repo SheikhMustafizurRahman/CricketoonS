@@ -19,7 +19,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/team_two"
-            android:text="Team A Innings"
+            tools:text="Team A Innings"
             android:layout_marginTop="@dimen/text_to_text_margin"
             android:textAlignment="center"
             android:textStyle="bold"
@@ -32,7 +32,7 @@
             app:layout_constraintWidth_percent="0.5"
             app:layout_constraintTop_toTopOf="@id/team_one"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Team B Innings"
+            tools:text="Team B Innings"
             android:textSize="@dimen/scorecardTeamNameSize"
             android:textStyle="bold"
             android:textAlignment="center"
@@ -70,12 +70,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/text_to_text_margin"
                             android:text="Batter"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textSize="20sp"
                             android:textStyle="bold"
-                            app:layout_constraintEnd_toStartOf="@id/runs"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/runs"
+                            />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/runs"
@@ -149,7 +149,6 @@
                     android:id="@+id/batting_score_RV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintVertical_weight="0.5"
                     app:layout_constraintTop_toBottomOf="@id/batting_header_row"
                     tools:listitem="@layout/batting_score_card"
                     />
@@ -171,14 +170,14 @@
                             android:id="@+id/bowler_column"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Bowler"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toStartOf="@id/overs_column"
                             app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/overs_column"
+                            android:text="Bowler"
+                            android:textStyle="bold"
+                            android:textSize="20sp"
 
-                            app:layout_constraintTop_toTopOf="parent" />
+                            />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/overs_column"
@@ -252,7 +251,6 @@
                     android:id="@+id/bowling_scoreRV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintVertical_weight="0.5"
                     app:layout_constraintTop_toBottomOf="@id/bowling_header_row"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

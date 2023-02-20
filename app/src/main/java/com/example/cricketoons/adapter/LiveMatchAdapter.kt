@@ -11,7 +11,10 @@ import com.bumptech.glide.Glide
 import com.example.cricketoons.R
 import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.viewmodel.ViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LiveMatchAdapter(val context: Context, val viewModel: ViewModel) :
     RecyclerView.Adapter<LiveMatchAdapter.LiveViewHolder>() {
