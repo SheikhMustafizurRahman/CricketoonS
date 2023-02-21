@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.example.cricketoons.R
 import com.example.cricketoons.fragments.HomeFragmentDirections
@@ -34,7 +36,7 @@ class RecentMatchAdapter(val context: Context, val viewModel: ViewModel) :
         val teamTwoFlag: ImageView = view.findViewById(R.id.team2flag)
         val countdownTime: TextView = view.findViewById(R.id.countdown_timer)
         val matchCard:CardView= view.findViewById(R.id.recentCV)
-    }
+   }
 
     fun setDataset(fixtures: List<Fixture>) {
         recent = fixtures
@@ -57,6 +59,8 @@ class RecentMatchAdapter(val context: Context, val viewModel: ViewModel) :
         var localTeamLogo =""
         var visitorTeamLogo =""
         try {
+            //holder.progressbar.visibility = View.VISIBLE
+            //holder.swipetoRefresh.visibility=View.GONE
             CoroutineScope(Dispatchers.Main).launch {
                 withContext(Dispatchers.IO) {
                     if (recentMatch.localteam_id?.let { viewModel.checkIfTeamExistInRoom(it) }!! > 0) {

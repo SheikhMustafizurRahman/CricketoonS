@@ -20,6 +20,11 @@ class BattingScorecardAdapter(val context: Context, val viewModel: ViewModel,val
 
     class BattingViewHolder(view: View):RecyclerView.ViewHolder(view) {
         val playerName:TextView= view.findViewById(R.id.player_name)
+        val runScore:TextView=view.findViewById(R.id.player_run_score)
+        val ballPlayed:TextView=view.findViewById(R.id.player_ball_played)
+        val fours:TextView=view.findViewById(R.id.player_fours)
+        val sixes:TextView=view.findViewById(R.id.player_sixes)
+        val strikeRate:TextView=view.findViewById(R.id.player_SR)
 
     }
 
@@ -35,10 +40,16 @@ class BattingScorecardAdapter(val context: Context, val viewModel: ViewModel,val
 
     override fun onBindViewHolder(holder: BattingViewHolder, position: Int) {
         val player= players[position]
-        holder.playerName.text = player.score.toString()
+        holder.playerName.text = "Mustafizur Rahman"
+        holder.runScore.text=player.score.toString() 
+        holder.ballPlayed.text=player.ball.toString()
+        holder.fours.text=player.four_x.toString()
+        holder.sixes.text=player.six_x.toString()
+        holder.strikeRate.text=player.rate.toString()
     }
 
     fun setDataset(batting: List<Batting>?) {
+        Log.d(TAG, "setDataset: $scoreboard")
         if (batting != null) players = batting.filter { it.scoreboard == scoreboard }
         Log.d(TAG, "setDataset: ${players.size}")
     }

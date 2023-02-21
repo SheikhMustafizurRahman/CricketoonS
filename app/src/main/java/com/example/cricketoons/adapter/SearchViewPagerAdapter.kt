@@ -15,7 +15,7 @@ class SearchViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecy
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            0-> PlayerSearchFragment()
+            1-> PlayerSearchFragment()
             else -> TeamSearchFragment()
         }
     }

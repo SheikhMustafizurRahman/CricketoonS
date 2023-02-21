@@ -39,6 +39,8 @@ class RecentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.viewModelScope.launch(Dispatchers.IO) {
             try {
+                binding.progressBar.visibility= View.VISIBLE
+                binding.recentRefresh.visibility=View.GONE
                 binding.recentRefresh.setOnRefreshListener {
                     if (Constants.checkConnectivity(requireContext())) {
                         Log.d("TAG", "onViewCreated: NetWorkAvailable")
@@ -73,6 +75,8 @@ class RecentFragment : Fragment() {
                 adapter.setDataset(it)
                 binding.recentMatchRv.adapter=adapter
             }
+            binding.recentRefresh.visibility=View.VISIBLE
+            binding.progressBar.visibility= View.GONE
         }
     }
 }

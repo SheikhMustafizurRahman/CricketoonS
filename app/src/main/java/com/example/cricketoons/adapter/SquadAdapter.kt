@@ -10,35 +10,34 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cricketoons.R
-import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
+import com.example.cricketoons.model.apiFixture.Squad
 import com.example.cricketoons.viewmodel.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PlayerSearchAdapter(val context: Context,val viewModel: ViewModel) :
-    RecyclerView.Adapter<PlayerSearchAdapter.PlayerSearchViewHolder>() {
+class SquadAdapter(val context: Context,val viewModel: ViewModel) :
+    RecyclerView.Adapter<SquadAdapter.PlayerViewHolder>() {
 
     private var playersList = emptyList<Squad>()
-    private var squadOfMatch= emptyList<com.example.cricketoons.model.apiFixture.Squad>()
 
-    class PlayerSearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class PlayerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val playerName:TextView=view.findViewById(R.id.player_name)
         val playerCountry:TextView=view.findViewById(R.id.player_country)
         val playerPosition:TextView=view.findViewById(R.id.player_role)
         val playerImage:ImageView=view.findViewById(R.id.player_image)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerSearchViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
         val layout =
             LayoutInflater.from(parent.context).inflate(R.layout.playersview, parent, false)
-        return PlayerSearchViewHolder(layout)
+        return PlayerViewHolder(layout)
     }
 
     override fun getItemCount(): Int {
-       return playersList.size
+        return playersList.size
     }
 
-    override fun onBindViewHolder(holder: PlayerSearchViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         val player= playersList[position]
         holder.playerName.text=player.fullname
         viewModel.viewModelScope.launch(Dispatchers.IO) {
@@ -52,13 +51,4 @@ class PlayerSearchAdapter(val context: Context,val viewModel: ViewModel) :
         playersList = it
         notifyDataSetChanged()
     }
-
-    fun searchPlayer(text: String) {
-        val searchResult = ArrayList<Squad>()
-        for(player in playersList){
-            if (player.fullname!!.contains(text,true)) searchResult.add(player)
-        }
-        setDataset(searchResult)
-    }
-
 }

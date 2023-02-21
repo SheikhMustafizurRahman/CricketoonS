@@ -53,7 +53,6 @@ class PlayerSearchFragment : Fragment() {
     private fun searchPlayer(searchView: SearchView) {
         searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
             override fun onQueryTextChange(newText: String?): Boolean {
-                searchView.clearFocus()
                 if(newText!=null){
                     adapter.searchPlayer(newText)
                 }

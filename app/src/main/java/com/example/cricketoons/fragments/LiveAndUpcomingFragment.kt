@@ -44,7 +44,7 @@ class LiveAndUpcomingFragment : Fragment() {
                     }
                     binding.swipeRefreshLayout.isRefreshing = false
                 }
-                binding.liveMatchRv.layoutManager = LinearLayoutManager(requireContext())
+                binding.liveMatchRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
                 binding.liveMatchRv.setHasFixedSize(true)
                 binding.upcomingMatchRv.layoutManager = LinearLayoutManager(requireContext())
                 binding.upcomingMatchRv.setHasFixedSize(true)

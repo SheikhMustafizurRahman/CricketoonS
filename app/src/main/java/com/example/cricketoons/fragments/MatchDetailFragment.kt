@@ -19,9 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-val TabTxtArray = arrayOf(
-    "INFO", "SCORECARDS", "SQUADS"
-)
 private const val TAG = "MatchDetailFragment"
 
 class MatchDetailFragment : Fragment() {
@@ -30,6 +27,9 @@ class MatchDetailFragment : Fragment() {
     private val viewModel: ViewModel by viewModels()
     private val args: MatchDetailFragmentArgs by navArgs()
 
+    val TabTxtArray = arrayOf(
+        "INFO", "SCORECARDS", "SQUADS"
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

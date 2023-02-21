@@ -103,8 +103,5 @@
                     android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
-
-
-
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

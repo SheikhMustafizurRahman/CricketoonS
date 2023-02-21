@@ -11,15 +11,16 @@ import com.example.cricketoons.databinding.FragmentSearchBinding
 import com.example.cricketoons.viewmodel.ViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
-val TabTextArray = arrayOf(
-    "Player", "Team"
-)
-
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ViewModel by viewModels()
+
+    private val TabTextArray = arrayOf(
+        "Team","Player"
+    )
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

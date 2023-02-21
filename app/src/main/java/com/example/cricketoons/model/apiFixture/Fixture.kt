@@ -16,7 +16,7 @@ data class Fixture(
     var id: Int,
     var last_period:@RawValue Any?,
     var league_id: Int?,
-    var lineup:@RawValue List<Lineup>?,
+    var lineup:@RawValue List<Squad>?,
     var live: Boolean?,
     var localteam_dl_data:@RawValue LocalteamDlData?,
     var localteam_id: Int?,

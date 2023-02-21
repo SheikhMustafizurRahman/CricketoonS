@@ -20,6 +20,7 @@ import com.example.cricketoons.viewmodel.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+private const val TAG = "TeamDetailFragment"
 class TeamDetailFragment() : Fragment() {
 
     private var _binding: FragmentTeamDetailsBinding? = null
@@ -51,13 +52,15 @@ class TeamDetailFragment() : Fragment() {
             try {
                 squad.postValue(viewModel.readSquadByCountryID(args.teamId))
                 val regularList = squad.value.orEmpty()
+
                 val recyclerViewState = binding.recyclerView.layoutManager?.onSaveInstanceState()
                 binding.recyclerView.layoutManager?.onRestoreInstanceState(recyclerViewState)
                 val adapter = PlayerSearchAdapter(requireContext(), viewModel)
                 adapter.setDataset(regularList)
+                Log.d(TAG, "getTeamFromAPI: $regularList")
                 binding.recyclerView.adapter = adapter
             } catch (e: Exception) {
-                Log.e("TAG", "getTeamFromAPI: ${e.message}", )
+                Log.e("TAG", "getTeamFromAPI: ${e},${args.teamId}", )
             }
         }
     }

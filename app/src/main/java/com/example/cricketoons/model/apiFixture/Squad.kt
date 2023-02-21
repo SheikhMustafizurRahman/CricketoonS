@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
 @Parcelize
-data class Lineup(
+data class Squad(
     var battingstyle: String?,
     var bowlingstyle: String?,
     var country_id: Int?,
