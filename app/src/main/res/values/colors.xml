@@ -14,18 +14,4 @@
     <color name="colorButton">#9C27B0</color>
     <color name="colorFloatButton">#7B1FA2</color>
     <color name="colorOnSelect">#D1C4E9</color>
-    <!-- Night theme -->
-    <color name="colorPrimaryNight">#B0BEC5</color>
-    <color name="colorPrimaryVariantNight">#78909C</color>
-    <color name="colorOnPrimaryNight">#000000</color>
-    <color name="colorSecondaryNight">#616161</color>
-    <color name="colorSecondaryVariantNight">#37474F</color>
-    <color name="colorOnSecondaryNight">#FFFFFF</color>
-    <color name="colorBackgroundNight">#263238</color>
-    <color name="colorOnSurfaceNight">#263238</color>
-    <color name="colorTextPrimaryNight">#B0BEC5</color>
-    <color name="colorTextSecondaryNight">#B0BEC5</color>
-    <color name="colorButtonNight">#B0BEC5</color>
-    <color name="colorFloatButtonNight">#616161</color>
-    <color name="colorOnSelectNight">#78909C</color>
 </resources>

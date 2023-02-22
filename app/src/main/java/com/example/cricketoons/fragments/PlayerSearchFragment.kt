@@ -2,7 +2,9 @@ package com.example.cricketoons.fragments
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,7 +19,8 @@ class PlayerSearchFragment : Fragment() {
     private var _binding: FragmentPlayerSearchBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ViewModel by viewModels()
-    private lateinit var adapter:PlayerSearchAdapter
+    private lateinit var adapter: PlayerSearchAdapter
+    private lateinit var searchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,15 +37,14 @@ class PlayerSearchFragment : Fragment() {
         binding.searchPlayerRV.setHasFixedSize(true)
         try {
             viewModel.getALlSquadPlayerFromRoom().observe(viewLifecycleOwner) {
-/*                val recyclerViewState = binding.searchPlayerRV.layoutManager?.onSaveInstanceState()
+                val recyclerViewState = binding.searchPlayerRV.layoutManager?.onSaveInstanceState()
                 // Restore state
-                binding.searchPlayerRV.layoutManager?.onRestoreInstanceState(recyclerViewState)*/
-
-                adapter = PlayerSearchAdapter(requireContext(), viewModel)
-                adapter.setDataset(it)
+                binding.searchPlayerRV.layoutManager?.onRestoreInstanceState(recyclerViewState)
+                adapter = PlayerSearchAdapter(requireContext(), viewModel,it)
+                //adapter.setDataset(it)
                 binding.searchPlayerRV.adapter = adapter
-
-                searchPlayer(binding.searchView)
+                searchView = binding.searchView
+                searchPlayer()
             }
         } catch (e: Exception) {
             Log.e(TAG, "onViewCreated: ${e.message}")
@@ -50,27 +52,24 @@ class PlayerSearchFragment : Fragment() {
 
     }
 
-    private fun searchPlayer(searchView: SearchView) {
-        searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if(newText!=null){
-                    adapter.searchPlayer(newText)
+    private fun searchPlayer() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                if (query != null) {
+                    adapter.searchPlayer(query)
                 }
                 return false
             }
 
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if(query!=null){
-                    adapter.searchPlayer(query)
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    adapter.searchPlayer(newText)
                 }
                 return false
             }
         })
 
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
 }

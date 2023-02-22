@@ -9,6 +9,10 @@
         android:icon="@drawable/cricketbat"
         android:title="@string/teams" />
     <item
+        android:id="@+id/ranking"
+        android:icon="@drawable/searchlogo"
+        android:title="Ranking" />
+    <item
         android:id="@+id/searchplayer"
         android:icon="@drawable/searchlogo"
         android:title="@string/search" />

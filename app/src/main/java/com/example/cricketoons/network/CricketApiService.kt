@@ -4,6 +4,7 @@ import com.example.cricketoons.model.apiFixture.FixtureResponse
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.TeamSquadFromAPI
 import com.example.cricketoons.model.fixtureWithTeam.FixturewithTeam
+import com.example.cricketoons.model.rankingAPI.RankingResponse
 import com.example.cricketoons.model.roomCountry.CountryResponse
 import com.example.cricketoons.model.roomLeague.LeagueResponse
 import com.example.cricketoons.model.roomSeason.SeasonResponse
@@ -70,8 +71,14 @@ interface CricketApiService {
     ): TeamSquadFromAPI
 
     @GET("players/:{playerId}")
-    fun fetchPlayerByIDFromAPI(
+    suspend fun fetchPlayerByIDFromAPI(
         @Path("playerId") playerId: Int
     ): Squad
+
+    @GET("team-rankings")
+    suspend fun fetchRankingDataFromAPI(
+        @Query("filter[type]") format:String,
+        @Query("api_token") api_token: String = API_KEY
+    ):RankingResponse
 
 }

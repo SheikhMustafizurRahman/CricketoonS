@@ -13,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.cricketoons.R
-import com.example.cricketoons.adapter.PlayerSearchAdapter
 import com.example.cricketoons.databinding.FragmentTeamDetailsBinding
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.viewmodel.ViewModel
@@ -55,10 +54,10 @@ class TeamDetailFragment() : Fragment() {
 
                 val recyclerViewState = binding.recyclerView.layoutManager?.onSaveInstanceState()
                 binding.recyclerView.layoutManager?.onRestoreInstanceState(recyclerViewState)
-                val adapter = PlayerSearchAdapter(requireContext(), viewModel)
-                adapter.setDataset(regularList)
+                //val adapter = PlayerSearchAdapter(requireContext(), viewModel)
+                //adapter.setDataset(regularList)
                 Log.d(TAG, "getTeamFromAPI: $regularList")
-                binding.recyclerView.adapter = adapter
+                //binding.recyclerView.adapter = adapter
             } catch (e: Exception) {
                 Log.e("TAG", "getTeamFromAPI: ${e},${args.teamId}", )
             }

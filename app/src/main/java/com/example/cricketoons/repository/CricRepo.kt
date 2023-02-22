@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
+import com.example.cricketoons.model.rankingAPI.RankingData
 import com.example.cricketoons.model.room.CricDao
 import com.example.cricketoons.model.roomCountry.Country
 import com.example.cricketoons.model.roomLeague.League
@@ -96,7 +97,11 @@ class CricRepo(private val cricDao: CricDao) {
         cricDao.insertIntoSquadTable(squad)
     }
 
-    fun fetchPlayerByIDFromAPI(playerId: Int): Squad {
+    suspend fun fetchPlayerByIDFromAPI(playerId: Int): Squad {
         return CrickMonkAPI.fetchPlayerByIDFromAPI(playerId)
+    }
+
+    suspend fun fetchRankingDataFromAPI(type:String):List<RankingData>{
+        return CrickMonkAPI.fetchRankingDataFromAPI(type).data
     }
 }

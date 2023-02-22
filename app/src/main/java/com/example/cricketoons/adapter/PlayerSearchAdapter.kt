@@ -16,10 +16,10 @@ import com.example.cricketoons.viewmodel.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PlayerSearchAdapter(val context: Context,val viewModel: ViewModel) :
+class PlayerSearchAdapter(val context: Context, val viewModel: ViewModel,val squads: List<Squad>) :
     RecyclerView.Adapter<PlayerSearchAdapter.PlayerSearchViewHolder>() {
 
-    private var playersList = emptyList<Squad>()
+    private var playersList = squads
     private var squadOfMatch= emptyList<com.example.cricketoons.model.apiFixture.Squad>()
 
     class PlayerSearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -57,7 +57,7 @@ class PlayerSearchAdapter(val context: Context,val viewModel: ViewModel) :
 
     fun searchPlayer(text: String) {
         val searchResult = ArrayList<Squad>()
-        for(player in playersList){
+        for(player in squads){
             if (player.fullname!!.contains(text,true)) searchResult.add(player)
         }
         setDataset(searchResult)

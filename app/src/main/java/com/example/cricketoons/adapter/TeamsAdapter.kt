@@ -26,7 +26,7 @@ class TeamsAdapter(val context: Context, val viewModel: ViewModel) : RecyclerVie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
-        val layout= LayoutInflater.from(parent.context).inflate(R.layout.team_card,parent,false)
+        val layout= LayoutInflater.from(context).inflate(R.layout.team_card,parent,false)
         return TeamViewHolder(layout)
     }
 

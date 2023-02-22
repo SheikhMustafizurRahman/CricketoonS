@@ -7,7 +7,7 @@
     android:padding="5dp">
 
     <androidx.cardview.widget.CardView
-
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
@@ -22,23 +22,36 @@
             android:paddingHorizontal="10dp"
             android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/league_logo"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"
+                android:src="@drawable/versus" />
+            <View
+                android:layout_width="20dp"
+                android:layout_height="0dp"
+                />
             <TextView
+                android:id="@+id/leagueNameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:fontFamily="serif-monospace"
-                android:text="Upcoming Match"
+                android:text="PSL"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#292525"
+                android:textColor="@color/colorOnSecondary"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:typeface="serif"
-                android:gravity="center"/>
+                android:gravity="center" />
 
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:padding="3dp"
             android:weightSum="3">
 
             <LinearLayout
@@ -50,17 +63,23 @@
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/team1flag"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/instagram_stories"
                     android:layout_gravity="center" />
                 <TextView
-                    android:id="@+id/team1Score"
+                    android:id="@+id/team1Code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="team-1Code"
-                    android:gravity="center"/>
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/team1Score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="150/10"
+                    android:layout_gravity="center"/>
             </LinearLayout>
 
             <View
@@ -78,16 +97,25 @@
 
                 <ImageView
                     android:id="@+id/vs"
-                    android:layout_width="32dp"
-                    android:layout_height="33dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:scaleType="fitXY"
+                    android:layout_gravity="center"
                     android:src="@drawable/versus" />
                 <TextView
-                    android:id="@+id/countdown_timer"
-                    android:layout_width="match_parent"
+                    android:id="@+id/upcoming"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="CountDownTimer" />
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    tools:text="2d day, 2d:2d:2d" />
+                <TextView
+                    android:id="@+id/countdown_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    tools:text="2d day, 2d:2d:2d" />
             </LinearLayout>
             <View
                 android:layout_width="0dp"
@@ -99,24 +127,29 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
+                android:padding="5dp"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/team2flag"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/instagram_stories"
                     android:layout_gravity="center" />
                 <TextView
-                    android:id="@+id/team2Score"
+                    android:id="@+id/team2code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="team-2code"
-                    android:gravity="center"/>
+                    android:layout_gravity="center"/>
+                <TextView
+                    android:id="@+id/team2Score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="150/10"
+                    android:layout_gravity="center"/>
             </LinearLayout>
         </LinearLayout>
-
-
 
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

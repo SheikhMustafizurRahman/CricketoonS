@@ -5,7 +5,6 @@
         android:radius="32dp"
         />
     <stroke
-        android:color="@color/colorPrimaryVariant"
         android:width="4dp"/>
 
 </shape>

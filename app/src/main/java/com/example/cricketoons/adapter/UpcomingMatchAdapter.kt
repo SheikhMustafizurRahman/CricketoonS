@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.cricketoons.R
 import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
 import com.example.cricketoons.util.Constants
@@ -32,8 +33,8 @@ class UpcomingMatchAdapter(val context: Context, viewModel: ViewModel) :
     private var countdownTimer: CountDownTimer? = null
 
     class UpcomingViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val teamOne: TextView = view.findViewById(R.id.team1Score)
-        val teamTwo: TextView = view.findViewById(R.id.team2Score)
+        val teamOne: TextView = view.findViewById(R.id.team1Code)
+        val teamTwo: TextView = view.findViewById(R.id.team2code)
         val teamOneFlag: ImageView = view.findViewById(R.id.team1flag)
         val teamTwoFlag: ImageView = view.findViewById(R.id.team2flag)
         val countdownTime: TextView = view.findViewById(R.id.countdown_timer)
@@ -52,11 +53,11 @@ class UpcomingMatchAdapter(val context: Context, viewModel: ViewModel) :
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
         val upcomingMatch = upcoming[position]
-        holder.teamOne.text = upcomingMatch.localteam.name
-        holder.teamTwo.text = upcomingMatch.visitorteam.name
-        Glide.with(context).load(upcomingMatch.localteam.image_path).error(R.drawable.bdflag)
+        holder.teamOne.text = upcomingMatch.localteam.code
+        holder.teamTwo.text = upcomingMatch.visitorteam.code
+        Glide.with(context).load(upcomingMatch.localteam.image_path).apply( RequestOptions().override(80, 80)).error(R.drawable.bdflag)
             .into(holder.teamOneFlag)
-        Glide.with(context).load(upcomingMatch.visitorteam.image_path).error(R.drawable.japanflag)
+        Glide.with(context).load(upcomingMatch.visitorteam.image_path).apply( RequestOptions().override(80, 80)).error(R.drawable.japanflag)
             .into(holder.teamTwoFlag)
         countdownTimer(holder.countdownTime, upcomingMatch.starting_at, Constants.getCurrentDate())
     }

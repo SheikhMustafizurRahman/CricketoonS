@@ -10,6 +10,7 @@ import com.example.cricketoons.database.CricketDB
 import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
+import com.example.cricketoons.model.rankingAPI.RankingData
 import com.example.cricketoons.model.roomTeams.TeamData
 import com.example.cricketoons.repository.CricRepo
 import kotlinx.coroutines.Dispatchers
@@ -90,5 +91,9 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
     suspend fun fetchPlayerByIDFromAPI(playerId: Int) {
         val player=repository.fetchPlayerByIDFromAPI(playerId)
         repository.insertSquadTable(player)
+    }
+
+    suspend fun fetchRankingFromAPI(type:String):List<RankingData>{
+        return repository.fetchRankingDataFromAPI(type)
     }
 }
