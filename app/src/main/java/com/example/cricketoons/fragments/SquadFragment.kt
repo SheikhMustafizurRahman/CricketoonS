@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cricketoons.adapter.SquadAdapter
-import com.example.cricketoons.databinding.FragmentMatchDetailScorecardBinding
 import com.example.cricketoons.databinding.FragmentMatchDetailSquadBinding
 import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.viewmodel.ViewModel
@@ -21,8 +20,8 @@ class SquadFragment(val fixture: Fixture) : Fragment() {
     private val viewModel: ViewModel by viewModels()
 
     private var squad= fixture.lineup!!
-    private var teamOneSquad=squad.filter { it.country_id==fixture.localteam_id }
-    private var teamtwoSquad=squad.filter { it.country_id==fixture.visitorteam_id}
+    private var teamOneSquad=squad.filter { it.lineup?.team_id==fixture.localteam_id }
+    private var teamtwoSquad=squad.filter { it.lineup?.team_id==fixture.visitorteam_id}
 
         override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,9 +43,9 @@ class SquadFragment(val fixture: Fixture) : Fragment() {
             Log.d(TAG, "onViewCreated: $squad,${fixture.localteam_id}")
             teamoneadapter.setDataset(teamOneSquad)
             binding.teamOneSquad.adapter=teamoneadapter
-/*            val teamtwoadapter=SquadAdapter(requireContext(),viewModel)
-            teamtwoadapter.setDataset(squad)
-            binding.teamTwoSquad.adapter=teamtwoadapter*/
+            val teamtwoadapter=SquadAdapter(requireContext(),viewModel)
+            teamtwoadapter.setDataset(teamtwoSquad)
+            binding.teamTwoSquad.adapter=teamtwoadapter
         }catch (e:Exception){
             Log.e(TAG, "onViewCreated: ${e.message}", )
         }

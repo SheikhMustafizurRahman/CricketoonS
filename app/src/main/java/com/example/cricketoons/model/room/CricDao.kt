@@ -54,4 +54,8 @@ interface CricDao {
     suspend fun getTeamNameFromRoom(id: Int): String
     @Query("SELECT image_path FROM teams WHERE id = :id")
     suspend fun getTeamLogoFromRoom(id: Int): String
+    @Query("SELECT fullname FROM squadTable WHERE id = :playerId")
+    suspend fun getPlayerNameByID(playerId: Int?): String?
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertIntoSquadTable(squad: Squad)
 }

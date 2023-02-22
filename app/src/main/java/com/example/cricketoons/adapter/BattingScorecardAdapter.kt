@@ -9,7 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cricketoons.R
 import com.example.cricketoons.model.apiFixture.Batting
+import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.viewmodel.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private const val TAG = "BattingScorecardAdapter"
 class BattingScorecardAdapter(val context: Context, val viewModel: ViewModel,val localTeam: Boolean):
@@ -40,7 +44,19 @@ class BattingScorecardAdapter(val context: Context, val viewModel: ViewModel,val
 
     override fun onBindViewHolder(holder: BattingViewHolder, position: Int) {
         val player= players[position]
-        holder.playerName.text = "Mustafizur Rahman"
+        CoroutineScope(Dispatchers.IO).launch{
+            try {
+                var batsmanName=viewModel.getPlayerNameByID(player.player_id)
+                if(batsmanName==null){
+                    viewModel.fetchPlayerByIDFromAPI(player.player_id!!)
+                    batsmanName=viewModel.getPlayerNameByID(player.player_id)
+                }
+                holder.playerName.text = batsmanName
+            }catch (e:Exception){
+                Log.d(TAG, "onBindViewHolder: ${e.message}")
+            }
+
+        }
         holder.runScore.text=player.score.toString() 
         holder.ballPlayed.text=player.ball.toString()
         holder.fours.text=player.four_x.toString()

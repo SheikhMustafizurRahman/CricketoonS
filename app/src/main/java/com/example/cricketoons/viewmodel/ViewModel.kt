@@ -83,4 +83,12 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun readRecentMatches(): List<Fixture> =repository.fetchRecentMatchesFromAPI()
     suspend fun getLive():List<Fixture> = repository.fetchLive()
+    suspend fun getPlayerNameByID(playerId: Int?): String? {
+        return repository.getPlayerNameByID(playerId)
+    }
+
+    suspend fun fetchPlayerByIDFromAPI(playerId: Int) {
+        val player=repository.fetchPlayerByIDFromAPI(playerId)
+        repository.insertSquadTable(player)
+    }
 }

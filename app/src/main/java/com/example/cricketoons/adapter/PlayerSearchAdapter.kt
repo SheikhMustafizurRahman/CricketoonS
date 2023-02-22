@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -26,6 +27,7 @@ class PlayerSearchAdapter(val context: Context,val viewModel: ViewModel) :
         val playerCountry:TextView=view.findViewById(R.id.player_country)
         val playerPosition:TextView=view.findViewById(R.id.player_role)
         val playerImage:ImageView=view.findViewById(R.id.player_image)
+        val playerCard:CardView=view.findViewById(R.id.player_card_view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerSearchViewHolder {

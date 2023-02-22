@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.cricketoons.R
 import com.example.cricketoons.model.apiFixture.Squad
 import com.example.cricketoons.viewmodel.ViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class SquadAdapter(val context: Context,val viewModel: ViewModel) :
     RecyclerView.Adapter<SquadAdapter.PlayerViewHolder>() {
@@ -40,11 +38,10 @@ class SquadAdapter(val context: Context,val viewModel: ViewModel) :
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         val player= playersList[position]
         holder.playerName.text=player.fullname
-        viewModel.viewModelScope.launch(Dispatchers.IO) {
-            holder.playerCountry.text= player.country_id?.let { viewModel.getCountryNameFromRoom(it) }
-        }
-        holder.playerPosition.text=player.battingstyle
-        Glide.with(context).load(player.image_path).error(R.drawable.no_pictures).into(holder.playerImage)
+        holder.playerName.textSize= 12F
+        holder.playerCountry.visibility=View.GONE
+        holder.playerPosition.text=player.position?.name
+        Glide.with(context).load(player.image_path).apply( RequestOptions().override(80, 80)).error(R.drawable.no_pictures).into(holder.playerImage)
     }
 
     fun setDataset(it: List<Squad>) {

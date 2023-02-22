@@ -1,6 +1,7 @@
 package com.example.cricketoons.network
 
 import com.example.cricketoons.model.apiFixture.FixtureResponse
+import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.TeamSquadFromAPI
 import com.example.cricketoons.model.fixtureWithTeam.FixturewithTeam
 import com.example.cricketoons.model.roomCountry.CountryResponse
@@ -67,5 +68,10 @@ interface CricketApiService {
         @Path("teamId") teamId: Int,
         @Query("api_token") api_token: String = API_KEY
     ): TeamSquadFromAPI
+
+    @GET("players/:{playerId}")
+    fun fetchPlayerByIDFromAPI(
+        @Path("playerId") playerId: Int
+    ): Squad
 
 }
