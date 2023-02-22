@@ -42,7 +42,7 @@ class TeamsAdapter(val context: Context, val viewModel: ViewModel) : RecyclerVie
         viewModel.getSquadFromAPIStoreInRoom(team.id)
         holder.teamCard.setOnClickListener {
             val bundle =Bundle()
-            bundle.putInt("teamId",team.country_id!!)
+            bundle.putInt("teamId",team.id!!)
             bundle.putString("teamLogo",team.image_path)
             holder.teamCard.findNavController().navigate(R.id.teamDetailFragment,bundle)
         }

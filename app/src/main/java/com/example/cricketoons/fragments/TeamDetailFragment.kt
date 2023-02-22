@@ -7,19 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.cricketoons.R
+import com.example.cricketoons.adapter.PlayerSearchAdapter
 import com.example.cricketoons.databinding.FragmentTeamDetailsBinding
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.viewmodel.ViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val TAG = "TeamDetailFragment"
+
 class TeamDetailFragment() : Fragment() {
 
     private var _binding: FragmentTeamDetailsBinding? = null
@@ -40,28 +42,27 @@ class TeamDetailFragment() : Fragment() {
 
         Glide.with(requireContext()).load(args.teamLogo).error(R.drawable.no_pictures)
             .into(binding.teamflag)
-            binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            binding.recyclerView.setHasFixedSize(true)
-            getTeamFromAPI()
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.setHasFixedSize(true)
+        getTeamFromAPI()
     }
 
     private fun getTeamFromAPI() {
-        val squad = MutableLiveData<List<Squad>>()
-        viewModel.viewModelScope.launch(Dispatchers.IO) {
+        var squad: List<Squad>?
+        CoroutineScope(Dispatchers.IO).launch {
             try {
-                squad.postValue(viewModel.readSquadByCountryID(args.teamId))
-                val regularList = squad.value.orEmpty()
-
+                squad = viewModel.readSquadByCountryID(args.teamId)
+                withContext(Dispatchers.Main) {
                 val recyclerViewState = binding.recyclerView.layoutManager?.onSaveInstanceState()
                 binding.recyclerView.layoutManager?.onRestoreInstanceState(recyclerViewState)
-                //val adapter = PlayerSearchAdapter(requireContext(), viewModel)
-                //adapter.setDataset(regularList)
-                Log.d(TAG, "getTeamFromAPI: $regularList")
-                //binding.recyclerView.adapter = adapter
+
+                    val adapter = PlayerSearchAdapter(requireContext(), viewModel, squad!!)
+                    adapter.setDataset(squad!!)
+                    binding.recyclerView.adapter = adapter
+                }
             } catch (e: Exception) {
-                Log.e("TAG", "getTeamFromAPI: ${e},${args.teamId}", )
+                Log.e(TAG, "getTeamFromAPI: ${e},${args.teamId}")
             }
         }
     }
-
 }
