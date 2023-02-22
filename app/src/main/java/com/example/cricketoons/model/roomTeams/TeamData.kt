@@ -3,6 +3,7 @@ package com.example.cricketoons.model.roomTeams
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 
 @Entity(tableName = "teams")
 data class TeamData(

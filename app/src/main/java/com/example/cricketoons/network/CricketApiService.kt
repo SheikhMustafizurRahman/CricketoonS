@@ -70,9 +70,10 @@ interface CricketApiService {
         @Query("api_token") api_token: String = API_KEY
     ): TeamSquadFromAPI
 
-    @GET("players/:{playerId}")
+    @GET("players/{playerId}")
     suspend fun fetchPlayerByIDFromAPI(
-        @Path("playerId") playerId: Int
+        @Path("playerId") playerId: Int,
+        @Query("api_token") api_token: String = API_KEY
     ): Squad
 
     @GET("team-rankings")

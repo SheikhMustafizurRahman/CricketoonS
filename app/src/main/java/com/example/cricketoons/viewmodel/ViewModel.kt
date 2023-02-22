@@ -90,6 +90,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun fetchPlayerByIDFromAPI(playerId: Int) {
         val player=repository.fetchPlayerByIDFromAPI(playerId)
+        Log.d(TAG, "fetchPlayerByIDFromAPI: calling fine")
         repository.insertSquadTable(player)
     }
 

@@ -1,5 +1,6 @@
 package com.example.cricketoons.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
@@ -14,6 +15,7 @@ import com.example.cricketoons.model.roomTeams.TeamData
 import com.example.cricketoons.model.roomVenue.Venue
 import com.example.cricketoons.network.RetrofitInstance.Companion.CrickMonkAPI
 
+private const val TAG = "CricRepo"
 class CricRepo(private val cricDao: CricDao) {
 
     val readTeamData: LiveData<List<TeamData>> = cricDao.getTeamsFromRoom()
@@ -98,7 +100,10 @@ class CricRepo(private val cricDao: CricDao) {
     }
 
     suspend fun fetchPlayerByIDFromAPI(playerId: Int): Squad {
-        return CrickMonkAPI.fetchPlayerByIDFromAPI(playerId)
+        Log.d(TAG, "fetchPlayerByIDFromAPI: calling")
+        val squad=CrickMonkAPI.fetchPlayerByIDFromAPI(playerId)
+        Log.d(TAG, "fetchPlayerByIDFromAPI: $squad")
+        return squad
     }
 
     suspend fun fetchRankingDataFromAPI(type:String):List<RankingData>{

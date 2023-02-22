@@ -42,9 +42,9 @@ class RankFragment(val type: String) : Fragment() {
                 val genderToFilter = "men" // specify the gender to filter by
                 val filtered = rankingData.filter { it.gender == genderToFilter }
                 val filteredTeams = filtered.flatMap { it.team }
-                Log.d(TAG, "onViewCreated: $filtered")
                 withContext(Dispatchers.Main) {
-                    val adapter = RankingAdapter(requireContext(), viewModel,)
+                    val adapter = RankingAdapter(requireContext(), viewModel)
+                    Log.d(TAG, "onViewCreated: $filteredTeams")
                     adapter.setDataset(filteredTeams)
                     binding.teamsRv.adapter = adapter
                 }
