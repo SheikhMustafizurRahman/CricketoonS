@@ -1,9 +1,11 @@
 package com.example.cricketoons.model.apiFixture
 
 import android.os.Parcelable
+import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
+@JsonClass(generateAdapter = true)
 @Parcelize
 data class Batting(
     var active: Boolean?,

@@ -20,7 +20,7 @@ class PlayerSearchAdapter(val context: Context, val viewModel: ViewModel,val squ
     RecyclerView.Adapter<PlayerSearchAdapter.PlayerSearchViewHolder>() {
 
     private var playersList = squads
-    private var squadOfMatch= emptyList<com.example.cricketoons.model.apiFixture.Squad>()
+    //private var squadOfMatch= emptyList<com.example.cricketoons.model.apiFixture.Squad>()
 
     class PlayerSearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val playerName:TextView=view.findViewById(R.id.player_name)

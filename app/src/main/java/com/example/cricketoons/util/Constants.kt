@@ -13,8 +13,19 @@ class Constants {
         const val NUM_HOME_TABS = 2
         const val MATCH_DAY="Match Day"
         const val TIME_OUT:Long=60
+        const val RECENT_MATCH_PARAMS="scoreboards,runs,balls,batting,bowling,lineup"
 
+        //Notification Related
+        @JvmField
+        val VERBOSE_NOTIFICATION_CHANNEL_NAME: CharSequence =
+            "Verbose WorkManager Notifications"
+        const val VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION =
+            "Shows notifications whenever work starts"
 
+        @JvmField
+        val NOTIFICATION_TITLE: CharSequence = "Work Manager Working"
+        const val CHANNEL_ID = "VERBOSE_NOTIFICATION"
+        const val NOTIFICATION_ID = 1
 
         fun checkConnectivity(context: Context):Boolean{
             val connectivityManager= context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

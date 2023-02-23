@@ -1,9 +1,9 @@
 package com.example.cricketoons.network
 
 import com.example.cricketoons.model.apiFixture.FixtureResponse
-import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.model.apiSpecificTeamwithSquad.TeamSquadFromAPI
 import com.example.cricketoons.model.fixtureWithTeam.FixturewithTeam
+import com.example.cricketoons.model.playerApiResponse.SquadResponse
 import com.example.cricketoons.model.rankingAPI.RankingResponse
 import com.example.cricketoons.model.roomCountry.CountryResponse
 import com.example.cricketoons.model.roomLeague.LeagueResponse
@@ -12,6 +12,7 @@ import com.example.cricketoons.model.roomStages.StageResponse
 import com.example.cricketoons.model.roomTeams.TeamSquad
 import com.example.cricketoons.model.roomVenue.VenueResponse
 import com.example.cricketoons.util.Constants.Companion.API_KEY
+import com.example.cricketoons.util.Constants.Companion.RECENT_MATCH_PARAMS
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -59,7 +60,7 @@ interface CricketApiService {
     @GET("fixtures")
     suspend fun getRecentMatch(
         @Query("filter[starts_between]") duration: String = "2023-02-01,2023-02-08",
-        @Query("include") params: String = "scoreboards,runs,balls,batting,bowling,lineup",
+        @Query("include") params: String = RECENT_MATCH_PARAMS,
         @Query("sort") date:String= "starting_at",
         @Query("api_token") api_token: String = API_KEY
     ): FixtureResponse
@@ -74,7 +75,7 @@ interface CricketApiService {
     suspend fun fetchPlayerByIDFromAPI(
         @Path("playerId") playerId: Int,
         @Query("api_token") api_token: String = API_KEY
-    ): Squad
+    ): SquadResponse
 
     @GET("team-rankings")
     suspend fun fetchRankingDataFromAPI(

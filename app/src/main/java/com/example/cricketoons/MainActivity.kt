@@ -1,9 +1,12 @@
 package com.example.cricketoons
 
 import android.content.Context
+import android.content.IntentFilter
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -11,11 +14,18 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.example.cricketoons.databinding.ActivityMainBinding
 import com.example.cricketoons.viewmodel.ViewModel
+import com.example.cricketoons.worker.NetworkChangeReceiver
+import com.example.cricketoons.worker.SyncDataWorker
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 private const val TAG = "MainActivity"
 
@@ -23,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private val viewModel: ViewModel by viewModels()
+    private var receiver: NetworkChangeReceiver? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -93,6 +104,44 @@ class MainActivity : AppCompatActivity() {
             }
             Log.d(TAG, "onCreate: called")
         }
+
+        //Internet Checker
+        receiver = object : NetworkChangeReceiver() {
+            override fun onNetworkChange(flag: Boolean) {
+                if (flag) {
+                    val customSnackbarView = LayoutInflater.from(binding.root.context)
+                        .inflate(R.layout.snackbar_custom, null)
+                    val snackbar = Snackbar.make(binding.root, "", Snackbar.LENGTH_INDEFINITE)
+                    snackbar.view.setBackgroundColor(Color.TRANSPARENT)
+                    val snackbarLayout = snackbar.view as Snackbar.SnackbarLayout
+                    snackbarLayout.setPadding(0, 0, 0, 0)
+                    snackbarLayout.addView(customSnackbarView, 0)
+                    snackbar.show()
+                } else Snackbar.make(binding.root, "Network Connected", Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+        }
+        val filter = IntentFilter("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(receiver, filter)
+
+        //PostNotification Worker
+        val workManager = WorkManager.getInstance(this)
+        val dataLoad =
+            PeriodicWorkRequest
+                .Builder(SyncDataWorker::class.java, 1, TimeUnit.HOURS)
+                .setInitialDelay(2, TimeUnit.MINUTES)
+                .addTag("apiCall")
+                .build()
+        workManager.enqueueUniquePeriodicWork(
+            "apiCall",
+            ExistingPeriodicWorkPolicy.REPLACE,
+            dataLoad
+        )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
     }
 
 }

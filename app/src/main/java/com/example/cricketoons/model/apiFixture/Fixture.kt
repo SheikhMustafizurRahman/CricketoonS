@@ -1,6 +1,7 @@
 package com.example.cricketoons.model.apiFixture
 
 import android.os.Parcelable
+import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 

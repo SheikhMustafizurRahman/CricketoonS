@@ -22,6 +22,7 @@ class RankFragment(val type: String) : Fragment() {
     private var _binding: FragmentRankBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ViewModel by viewModels()
+    constructor() : this("T20I")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -5,4 +5,11 @@
     <string name="teams">Teams</string>
     <string name="homescreen">Homescreen</string>
     <string name="search">Search</string>
+    <string name="league_name">League Name</string>
+    <string name="finished">Finished</string>
+    <string name="Upcoming">Upcoming</string>
+    <string name="Result">Yet To Start</string>
+    <string name="yet_to_start">Yet To Start</string>
+    <string name="snackbar_text">No Connection</string>
+    <string name="notout">NOT OUT</string>
 </resources>

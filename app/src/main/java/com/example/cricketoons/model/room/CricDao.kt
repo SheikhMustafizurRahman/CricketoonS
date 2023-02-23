@@ -58,4 +58,10 @@ interface CricDao {
     suspend fun getPlayerNameByID(playerId: Int?): String?
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertIntoSquadTable(squad: Squad)
+
+    @Query("SELECT name FROM leagueTable WHERE id = :leagueId")
+    suspend fun getLeagueNamebyID(leagueId:Int?):String
+
+    @Query("SELECT image_path FROM leagueTable WHERE id = :leagueId")
+    suspend fun getLeagueLogobyID(leagueId:Int?):String
 }

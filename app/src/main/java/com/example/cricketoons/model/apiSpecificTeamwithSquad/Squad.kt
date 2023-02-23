@@ -1,10 +1,15 @@
 package com.example.cricketoons.model.apiSpecificTeamwithSquad
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.example.cricketoons.model.apiFixture.LineupX
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @Entity(tableName = "squadTable")
+@Parcelize
 data class Squad(
     var battingstyle: String?,
     var bowlingstyle: String?,
@@ -18,12 +23,14 @@ data class Squad(
     var image_path: String?,
     var lastname: String?,
     @Ignore
-    var position: Position?,
+    var lineup: @RawValue LineupX?,
+    @Ignore
+    var position:@RawValue Position?,
     var resource: String?,
     @Ignore
-    var squad: SquadX?,
+    var squad:@RawValue SquadX?,
     var updated_at: String?
-){
+) : Parcelable {
     constructor():this(
         null,
         null,
@@ -33,6 +40,7 @@ data class Squad(
         null,
         null,
         0,
+        null,
         null,
         null,
         null,

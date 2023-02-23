@@ -94,6 +94,14 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         repository.insertSquadTable(player)
     }
 
+    suspend fun getLeagueLogobyID(leagueId: Int?):String{
+        return repository.getLeagueLogobyID(leagueId)
+    }
+
+    suspend fun getLeagueNamebyID(leagueId: Int?):String{
+        return repository.getLeagueNamebyID(leagueId)
+    }
+
     suspend fun fetchRankingFromAPI(type:String):List<RankingData>{
         return repository.fetchRankingDataFromAPI(type)
     }

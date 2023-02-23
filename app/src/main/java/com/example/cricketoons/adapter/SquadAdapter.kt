@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.cricketoons.R
-import com.example.cricketoons.model.apiFixture.Squad
+import com.example.cricketoons.model.apiSpecificTeamwithSquad.Squad
 import com.example.cricketoons.viewmodel.ViewModel
 
 class SquadAdapter(val context: Context,val viewModel: ViewModel) :

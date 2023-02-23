@@ -18,6 +18,10 @@ import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
 import com.example.cricketoons.util.Constants
 import com.example.cricketoons.util.Constants.Companion.MATCH_DAY
 import com.example.cricketoons.viewmodel.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -25,7 +29,7 @@ import java.util.*
 
 private const val TAG = "UpcomingMatchAdapter"
 
-class UpcomingMatchAdapter(val context: Context, viewModel: ViewModel) :
+class UpcomingMatchAdapter(val context: Context,val viewModel: ViewModel) :
     RecyclerView.Adapter<UpcomingMatchAdapter.UpcomingViewHolder>() {
 
     private var upcoming = emptyList<FixtureDataWteam>()
@@ -38,6 +42,14 @@ class UpcomingMatchAdapter(val context: Context, viewModel: ViewModel) :
         val teamOneFlag: ImageView = view.findViewById(R.id.team1flag)
         val teamTwoFlag: ImageView = view.findViewById(R.id.team2flag)
         val countdownTime: TextView = view.findViewById(R.id.countdown_timer)
+        val matchStatus:TextView =view.findViewById(R.id.upcoming)
+        val note:TextView=view.findViewById(R.id.match_note)
+        val leagueLogo:ImageView=view.findViewById(R.id.league_logo)
+        val leagueName:TextView=view.findViewById(R.id.leagueNameTV)
+        val teamOneScore: TextView = view.findViewById(R.id.team1Score)
+        val teamTwoScore: TextView = view.findViewById(R.id.team2Score)
+        val teamOneOver:TextView=view.findViewById(R.id.team1Over)
+        val teamTwoOver:TextView=view.findViewById(R.id.team2Over)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingViewHolder {
@@ -53,13 +65,27 @@ class UpcomingMatchAdapter(val context: Context, viewModel: ViewModel) :
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: UpcomingViewHolder, position: Int) {
         val upcomingMatch = upcoming[position]
-        holder.teamOne.text = upcomingMatch.localteam.code
-        holder.teamTwo.text = upcomingMatch.visitorteam.code
+        holder.teamOne.text = upcomingMatch.localteam.name
+        holder.teamTwo.text = upcomingMatch.visitorteam.name
         Glide.with(context).load(upcomingMatch.localteam.image_path).apply( RequestOptions().override(80, 80)).error(R.drawable.bdflag)
             .into(holder.teamOneFlag)
         Glide.with(context).load(upcomingMatch.visitorteam.image_path).apply( RequestOptions().override(80, 80)).error(R.drawable.japanflag)
             .into(holder.teamTwoFlag)
         countdownTimer(holder.countdownTime, upcomingMatch.starting_at, Constants.getCurrentDate())
+        CoroutineScope(Dispatchers.IO).launch {
+            val leagueName=viewModel.getLeagueNamebyID(upcomingMatch.league_id)
+            val leagueLogo=viewModel.getLeagueLogobyID(upcomingMatch.league_id)
+            withContext(Dispatchers.Main){
+                Glide.with(context).load(leagueLogo).error(R.drawable.japanflag)
+                    .into(holder.leagueLogo)
+                holder.leagueName.text=leagueName
+            }
+        }
+        holder.teamOneScore.visibility=View.GONE
+        holder.teamOneOver.visibility=View.GONE
+        holder.teamTwoScore.visibility=View.GONE
+        holder.teamTwoScore.visibility=View.GONE
+        holder.matchStatus.text=context.getString(R.string.Upcoming)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -103,7 +129,7 @@ class UpcomingMatchAdapter(val context: Context, viewModel: ViewModel) :
         try {
             val date1 = dateFormat.parse(date1String)
             val date2 = dateFormat.parse(date2String)
-            return date1.time - date2.time
+            return date1!!.time - date2!!.time
         } catch (e: Exception) {
             Log.e(TAG, "getTimeDifferenceInMillis: ${e.stackTrace}")
         }

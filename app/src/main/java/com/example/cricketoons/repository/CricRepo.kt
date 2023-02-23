@@ -99,9 +99,17 @@ class CricRepo(private val cricDao: CricDao) {
         cricDao.insertIntoSquadTable(squad)
     }
 
+    suspend fun getLeagueNamebyID(leagueId:Int?):String{
+        return cricDao.getLeagueNamebyID(leagueId)
+    }
+
+    suspend fun getLeagueLogobyID(leagueId:Int?):String{
+        return cricDao.getLeagueLogobyID(leagueId)
+    }
+
     suspend fun fetchPlayerByIDFromAPI(playerId: Int): Squad {
         Log.d(TAG, "fetchPlayerByIDFromAPI: calling")
-        val squad=CrickMonkAPI.fetchPlayerByIDFromAPI(playerId)
+        val squad=CrickMonkAPI.fetchPlayerByIDFromAPI(playerId).data
         Log.d(TAG, "fetchPlayerByIDFromAPI: $squad")
         return squad
     }

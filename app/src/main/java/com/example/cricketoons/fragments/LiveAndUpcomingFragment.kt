@@ -38,6 +38,8 @@ class LiveAndUpcomingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         GlobalScope.launch(Dispatchers.IO) {
             try {
+                binding.progressBar.visibility= View.VISIBLE
+                binding.swipeRefreshLayout.visibility=View.GONE
                 binding.swipeRefreshLayout.setOnRefreshListener {
                     if (checkConnectivity(requireContext())) {
                         Log.d("TAG", "onViewCreated: NetWorkAvailable")
@@ -71,6 +73,8 @@ class LiveAndUpcomingFragment : Fragment() {
                 adapter.setDataset(it)
                 binding.upcomingMatchRv.adapter = adapter
             }
+            binding.swipeRefreshLayout.visibility=View.VISIBLE
+            binding.progressBar.visibility= View.GONE
         }
     }
 

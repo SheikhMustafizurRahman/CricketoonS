@@ -118,4 +118,9 @@
             android:id="@+id/action_rankingFragment_to_teamDetailFragment"
             app:destination="@id/teamDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/rankFragment"
+        android:name="com.example.cricketoons.fragments.RankFragment"
+        android:label="RankFragment" >
+    </fragment>
 </navigation>
