@@ -6,23 +6,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:elevation="@dimen/options_margin"
     android:layout_margin="@dimen/rankMargin"
-    android:paddingEnd="2dp"
-    android:paddingStart="2dp"
+    android:paddingEnd="1dp"
+    android:paddingStart="1dp"
     android:gravity="center"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <!-- Sample scorecard row1 -->
         <TextView
             android:id="@+id/player_name"
-            android:layout_width="0dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -30,72 +32,62 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/player_over"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Player 1" />
 
         <TextView
             android:id="@+id/player_over"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/runs_size"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/bowlermarginend"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/player_maiden"
-            app:layout_constraintStart_toEndOf="@id/player_name"
-            app:layout_constraintTop_toTopOf="@+id/player_name"
             tools:text="10" />
 
         <TextView
             android:id="@+id/player_maiden"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/runs_size"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/bowlermarginend"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/player_run"
-            app:layout_constraintStart_toEndOf="@id/player_over"
-            app:layout_constraintTop_toTopOf="@id/player_over"
-            tools:text="0" />
+            tools:text="00" />
 
         <TextView
             android:id="@+id/player_run"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/runs_size"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/bowlermarginend"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/player_wicket"
-            app:layout_constraintStart_toEndOf="@id/player_maiden"
-            app:layout_constraintTop_toTopOf="@id/player_maiden"
             tools:text="00" />
 
         <TextView
             android:id="@+id/player_wicket"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/runs_size"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="@dimen/bowlermarginend"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
             android:textAlignment="textEnd"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/player_econ"
-            app:layout_constraintStart_toEndOf="@id/player_run"
-            app:layout_constraintTop_toTopOf="@id/player_run"
             tools:text="00" />
 
         <TextView
             android:id="@+id/player_econ"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:textAlignment="textEnd"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
+            android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/player_wicket"
-            app:layout_constraintTop_toTopOf="@id/player_wicket"
-            tools:text="70.00" />
+            tools:text="170.00" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

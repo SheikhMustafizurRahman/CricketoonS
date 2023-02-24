@@ -33,7 +33,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         //fixtureDataList = repository.readFixtureData
     }
 
-    suspend fun readUpcomingMatches(): List<FixtureDataWteam> = repository.readUpcoming()
+    suspend fun readUpcomingMatches(timegap: String): List<FixtureDataWteam> = repository.readUpcoming(timegap)
 
 
     fun getTeamsFromAPIStoreInRoom() {
@@ -82,7 +82,7 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         repository.fetchCountrySeasonStageLeagueVenueFromAPI()
     }
 
-    suspend fun readRecentMatches(): List<Fixture> =repository.fetchRecentMatchesFromAPI()
+    suspend fun readRecentMatches(timegap: String): List<Fixture> =repository.fetchRecentMatchesFromAPI(timegap)
     suspend fun getLive():List<Fixture> = repository.fetchLive()
     suspend fun getPlayerNameByID(playerId: Int?): String? {
         return repository.getPlayerNameByID(playerId)
@@ -104,5 +104,9 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun fetchRankingFromAPI(type:String):List<RankingData>{
         return repository.fetchRankingDataFromAPI(type)
+    }
+
+    suspend fun getVenueNameByID(venueId: Int?): String {
+        return repository.getVenueNameByID(venueId)
     }
 }

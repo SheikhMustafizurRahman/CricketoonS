@@ -22,7 +22,7 @@ class CricRepo(private val cricDao: CricDao) {
     val readSquadData: LiveData<List<Squad>> = cricDao.readSquadPlayersFromRoom()
 
 
-    suspend fun readUpcoming(): List<FixtureDataWteam> = CrickMonkAPI.getUpcomingMatch().data
+    suspend fun readUpcoming(timegap: String): List<FixtureDataWteam> = CrickMonkAPI.getUpcomingMatch(timegap).data
 
 
     suspend fun getTeams(): List<TeamData> {
@@ -88,7 +88,7 @@ class CricRepo(private val cricDao: CricDao) {
         return CrickMonkAPI.fetchRecentSquadFromAPI(teamId).data.squad
     }
 
-    suspend fun fetchRecentMatchesFromAPI(): List<Fixture> = CrickMonkAPI.getRecentMatch().data
+    suspend fun fetchRecentMatchesFromAPI(timegap: String): List<Fixture> = CrickMonkAPI.getRecentMatch(timegap).data
 
     suspend fun fetchLive():List<Fixture> = CrickMonkAPI.getlive().data
     suspend fun getPlayerNameByID(playerId: Int?): String? {
@@ -116,5 +116,9 @@ class CricRepo(private val cricDao: CricDao) {
 
     suspend fun fetchRankingDataFromAPI(type:String):List<RankingData>{
         return CrickMonkAPI.fetchRankingDataFromAPI(type).data
+    }
+
+    suspend fun getVenueNameByID(venueId: Int?): String {
+        return cricDao.getVenueNameByID(venueId)
     }
 }

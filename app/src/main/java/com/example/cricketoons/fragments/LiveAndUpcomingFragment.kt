@@ -1,5 +1,6 @@
 package com.example.cricketoons.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,10 +17,9 @@ import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.model.fixtureWithTeam.FixtureDataWteam
 import com.example.cricketoons.util.Constants.Companion.checkConnectivity
 import com.example.cricketoons.viewmodel.ViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class LiveAndUpcomingFragment : Fragment() {
     private var _binding: FragmentLiveAndUpcomingBinding? = null
@@ -36,13 +36,18 @@ class LiveAndUpcomingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        GlobalScope.launch(Dispatchers.IO) {
+        CoroutineScope(Dispatchers.IO).launch {
             try {
                 binding.progressBar.visibility= View.VISIBLE
                 binding.swipeRefreshLayout.visibility=View.GONE
                 binding.swipeRefreshLayout.setOnRefreshListener {
                     if (checkConnectivity(requireContext())) {
-                        Log.d("TAG", "onViewCreated: NetWorkAvailable")
+                        Log.d("LiveUpdateFragment", "onViewCreated: No Error Here2")
+                        CoroutineScope(Dispatchers.IO).launch {
+                            displayLive()
+                            Log.d("LiveUpdateFragment", "onViewCreated: No Error Here1")
+                            displayUpcoming()
+                        }
                     }
                     binding.swipeRefreshLayout.isRefreshing = false
                 }
@@ -50,6 +55,7 @@ class LiveAndUpcomingFragment : Fragment() {
                 binding.liveMatchRv.setHasFixedSize(true)
                 binding.upcomingMatchRv.layoutManager = LinearLayoutManager(requireContext())
                 binding.upcomingMatchRv.setHasFixedSize(true)
+                Log.d("LiveUpdateFragment", "onViewCreated: No Error Here3")
                 displayLive()
                 displayUpcoming()
             } catch (e: Exception) {
@@ -59,7 +65,8 @@ class LiveAndUpcomingFragment : Fragment() {
     }
 
     private suspend fun displayUpcoming() {
-        val list = viewModel.readUpcomingMatches()
+        val timegap = getTimegap()
+        val list = viewModel.readUpcomingMatches(timegap)
         withContext(Dispatchers.Main) {
             val liveDataList: MutableLiveData<List<FixtureDataWteam>> =
                 MutableLiveData<List<FixtureDataWteam>>().apply {
@@ -76,6 +83,17 @@ class LiveAndUpcomingFragment : Fragment() {
             binding.swipeRefreshLayout.visibility=View.VISIBLE
             binding.progressBar.visibility= View.GONE
         }
+    }
+
+    private fun getTimegap(): String {
+        val today = Calendar.getInstance().time
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DATE, 28)
+        val upcomingTwoWeek = calendar.time
+
+        @SuppressLint("ConstantLocale")
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return "${formatter.format(today)},${formatter.format(upcomingTwoWeek)}"
     }
 
     private suspend fun displayLive() {

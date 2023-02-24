@@ -26,6 +26,8 @@ class RankingAdapter(val context: Context,val viewModel: ViewModel) : RecyclerVi
         val teamCodeTV: TextView =view.findViewById(R.id.teamCode)
         val teamLogo: ImageView =view.findViewById(R.id.teamLogo)
         val teamCard: CardView = view.findViewById(R.id.cardView)
+        val teamrank:TextView =view.findViewById(R.id.rank)
+        val rankingpoint:TextView=view.findViewById(R.id.teamRating)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,6 +43,8 @@ class RankingAdapter(val context: Context,val viewModel: ViewModel) : RecyclerVi
         val team=teams[position]
         holder.teamNameTV.text=team.name
         holder.teamCodeTV.text=team.code
+        holder.teamrank.text= (position+1).toString()
+        holder.rankingpoint.text= team.ranking.points.toString()
         Log.d(TAG, "onBindViewHolder: $team")
         Glide.with(context).load(team.image_path).error(R.drawable.no_pictures).into(holder.teamLogo)
 

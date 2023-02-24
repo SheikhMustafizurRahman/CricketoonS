@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -50,6 +51,7 @@ class UpcomingMatchAdapter(val context: Context,val viewModel: ViewModel) :
         val teamTwoScore: TextView = view.findViewById(R.id.team2Score)
         val teamOneOver:TextView=view.findViewById(R.id.team1Over)
         val teamTwoOver:TextView=view.findViewById(R.id.team2Over)
+        val relative:RelativeLayout=view.findViewById(R.id.relative)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingViewHolder {
@@ -71,7 +73,7 @@ class UpcomingMatchAdapter(val context: Context,val viewModel: ViewModel) :
             .into(holder.teamOneFlag)
         Glide.with(context).load(upcomingMatch.visitorteam.image_path).apply( RequestOptions().override(80, 80)).error(R.drawable.japanflag)
             .into(holder.teamTwoFlag)
-        countdownTimer(holder.countdownTime, upcomingMatch.starting_at, Constants.getCurrentDate())
+        if(!timerIsRunning) countdownTimer(holder.countdownTime, upcomingMatch.starting_at, Constants.getCurrentDate())
         CoroutineScope(Dispatchers.IO).launch {
             val leagueName=viewModel.getLeagueNamebyID(upcomingMatch.league_id)
             val leagueLogo=viewModel.getLeagueLogobyID(upcomingMatch.league_id)
@@ -84,8 +86,14 @@ class UpcomingMatchAdapter(val context: Context,val viewModel: ViewModel) :
         holder.teamOneScore.visibility=View.GONE
         holder.teamOneOver.visibility=View.GONE
         holder.teamTwoScore.visibility=View.GONE
-        holder.teamTwoScore.visibility=View.GONE
+        holder.teamTwoOver.visibility=View.GONE
         holder.matchStatus.text=context.getString(R.string.Upcoming)
+        if(holder.countdownTime.equals(MATCH_DAY)){
+            holder.relative.visibility=View.GONE
+        }
+        else{
+            holder.relative.visibility=View.VISIBLE
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -64,4 +64,6 @@ interface CricDao {
 
     @Query("SELECT image_path FROM leagueTable WHERE id = :leagueId")
     suspend fun getLeagueLogobyID(leagueId:Int?):String
+    @Query("SELECT name FROM Venue WHERE id = :venueId")
+    suspend fun getVenueNameByID(venueId: Int?):String
 }

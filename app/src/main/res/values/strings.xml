@@ -12,4 +12,22 @@
     <string name="yet_to_start">Yet To Start</string>
     <string name="snackbar_text">No Connection</string>
     <string name="notout">NOT OUT</string>
+    <string name="bowler">Bowler</string>
+    <string name="economy">ECO</string>
+    <string name="w">W</string>
+    <string name="m">M</string>
+    <string name="o">O</string>
+    <string name="r">R</string>
+    <string name="batsman">Batsman</string>
+    <string name="b">B</string>
+    <string name="_4s">4s</string>
+    <string name="_6s">6s</string>
+    <string name="s_r">S/R</string>
+    <string name="team_a_innings">Team A Innings</string>
+    <string name="team_b_innings">Team B Innings</string>
+    <string name="man_of_the_match">Man Of The Match</string>
+    <string name="venue">Venue</string>
+    <string name="date_and_time">Date and Time</string>
+    <string name="series">Series</string>
+    <string name="teamlogo">TeamLogo</string>
 </resources>

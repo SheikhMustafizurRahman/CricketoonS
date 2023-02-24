@@ -28,7 +28,7 @@ class BattingScorecardAdapter(val context: Context, val viewModel: ViewModel, pr
         val fours:TextView=view.findViewById(R.id.player_fours)
         val sixes:TextView=view.findViewById(R.id.player_sixes)
         val strikeRate:TextView=view.findViewById(R.id.player_SR)
-        val playerStatus:TextView=view.findViewById(R.id.player_status)
+        //val playerStatus:TextView=view.findViewById(R.id.playerStatus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BattingViewHolder {
@@ -61,13 +61,6 @@ class BattingScorecardAdapter(val context: Context, val viewModel: ViewModel, pr
         holder.fours.text=player.four_x.toString()
         holder.sixes.text=player.six_x.toString()
         holder.strikeRate.text=player.rate.toString()
-        if (player.active==false){
-            Log.d(TAG, "onBindViewHolder: ${player.active}")
-            //holder.playerStatus.text="kopal Kharap"
-        }
-        else{
-           // holder.playerStatus.text=context.getString(R.string.notout)
-        }
     }
 
     fun setDataset(batting: List<Batting>?) {

@@ -12,6 +12,10 @@ import com.example.cricketoons.adapter.SquadAdapter
 import com.example.cricketoons.databinding.FragmentMatchDetailSquadBinding
 import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.viewmodel.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val TAG = "SquadFragment"
 class SquadFragment(val fixture: Fixture) : Fragment() {
@@ -46,6 +50,15 @@ class SquadFragment(val fixture: Fixture) : Fragment() {
             val teamtwoadapter=SquadAdapter(requireContext(),viewModel)
             teamtwoadapter.setDataset(teamtwoSquad)
             binding.teamTwoSquad.adapter=teamtwoadapter
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val localteamName = viewModel.getTeamNameFromRoom(fixture.localteam_id!!)
+                val visitorTeamName = viewModel.getTeamNameFromRoom(fixture.visitorteam_id!!)
+                withContext(Dispatchers.Main){
+                    binding.teamOne.text=localteamName
+                    binding.teamTwo.text=visitorTeamName
+                }
+            }
         }catch (e:Exception){
             Log.e(TAG, "onViewCreated: ${e.message}", )
         }

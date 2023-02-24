@@ -6,111 +6,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:elevation="@dimen/options_margin"
     android:layout_margin="@dimen/rankMargin"
-    android:paddingEnd="2dp"
-    android:paddingStart="2dp"
+    android:paddingEnd="1dp"
+    android:paddingStart="1dp"
+    android:gravity="center"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <!-- Player Name -->
         <TextView
             android:id="@+id/player_name"
-            android:layout_width="0dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
             android:singleLine="true"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@id/player_run_score"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="Player 1" />
         <!-- Player Status -->
-        <TextView
-            android:id="@+id/player_status"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/player_name"
-            tools:text="C simmo b Mustafiz" />
 
         <!-- Run Score -->
         <TextView
             android:id="@+id/player_run_score"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/runs_size"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="textEnd"
+            android:layout_marginEnd="@dimen/bowlermarginend"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
+            android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/player_ball_played"
-            app:layout_constraintStart_toEndOf="@id/player_name"
-            app:layout_constraintTop_toTopOf="@+id/player_name"
-            tools:text="150" />
+            tools:text="2000" />
 
         <!-- Balls Played -->
 
         <TextView
             android:id="@+id/player_ball_played"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/runs_size"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="textEnd"
+            android:layout_marginEnd="@dimen/bowlermarginend"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
+            android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/player_fours"
-            app:layout_constraintStart_toEndOf="@+id/player_run_score"
-            app:layout_constraintTop_toTopOf="@+id/player_run_score"
             tools:text="200" />
 
         <TextView
             android:id="@+id/player_fours"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/runs_size"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/bowlermarginend"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
             android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/player_sixes"
-            app:layout_constraintStart_toEndOf="@id/player_ball_played"
-            app:layout_constraintTop_toTopOf="@id/player_ball_played"
-            tools:text="00" />
+            tools:text="10" />
 
         <TextView
             android:id="@+id/player_sixes"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/runs_size"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="@dimen/bowlermarginend"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
             android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/player_SR"
-            app:layout_constraintStart_toEndOf="@id/player_fours"
-            app:layout_constraintTop_toTopOf="@id/player_fours"
-            tools:text="00" />
+            tools:text="10" />
 
         <TextView
             android:id="@+id/player_SR"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/bowlermargintopbottom"
+            android:layout_marginBottom="@dimen/bowlermargintopbottom"
             android:textAlignment="center"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/player_sixes"
-            app:layout_constraintTop_toTopOf="@id/player_sixes"
-            tools:text="270.00" />
+            tools:text="170.00" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+<!--    <TextView
+        android:id="@+id/playerStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="20dp"
+        android:textSize="16sp"
+        android:hint="Hello fixx"/>-->
 
 </com.google.android.material.card.MaterialCardView>

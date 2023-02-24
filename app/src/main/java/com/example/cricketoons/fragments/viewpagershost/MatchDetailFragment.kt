@@ -69,13 +69,8 @@ class MatchDetailFragment : Fragment() {
             binding.team1Code.text = viewModel.getTeamNameFromRoom(fixture.localteam_id!!)
             binding.team2code.text = viewModel.getTeamNameFromRoom(fixture.visitorteam_id!!)
             val localTeamRun = fixture.runs?.filter { it.team_id == fixture.localteam_id }
+            val visitorTeamRun = fixture.runs?.filter { it.team_id == fixture.visitorteam_id }
 
-            binding.team1Score.text = buildString {
-                append("Total: ")
-                append(localTeamRun?.get(0)?.score)
-                append("/")
-                append(localTeamRun?.get(0)?.wickets)
-            }
             val localTeamLogo = viewModel.getTeamLogoFromRoom(fixture.localteam_id!!)
             val visitorTeamLogo = viewModel.getTeamLogoFromRoom(fixture.visitorteam_id!!)
             withContext(Dispatchers.Main) {
@@ -83,14 +78,20 @@ class MatchDetailFragment : Fragment() {
                     .into(binding.team1flag)
                 Glide.with(requireContext()).load(visitorTeamLogo).error(R.drawable.japanflag)
                     .into(binding.team2flag)
-            }
-            binding.matchNote.text = fixture.note
-            val visitorTeamRun = fixture.runs?.filter { it.team_id == fixture.visitorteam_id }
-            binding.team2Score.text = buildString {
-                append("Total: ")
-                append(visitorTeamRun?.get(0)?.score)
-                append("/")
-                append(visitorTeamRun?.get(0)?.wickets)
+                binding.matchNote.text = fixture.note
+
+                binding.team2Score.text = buildString {
+                    append("Total: ")
+                    append(visitorTeamRun?.get(0)?.score)
+                    append("/")
+                    append(visitorTeamRun?.get(0)?.wickets)
+                }
+                binding.team1Score.text = buildString {
+                    append("Total: ")
+                    append(localTeamRun?.get(0)?.score)
+                    append("/")
+                    append(localTeamRun?.get(0)?.wickets)
+                }
             }
         }
 

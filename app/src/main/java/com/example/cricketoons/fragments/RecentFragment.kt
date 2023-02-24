@@ -1,5 +1,6 @@
 package com.example.cricketoons.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,9 +16,12 @@ import com.example.cricketoons.databinding.FragmentRecentBinding
 import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.util.Constants
 import com.example.cricketoons.viewmodel.ViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 
 private const val TAG = "RecentFragment"
 
@@ -39,11 +43,14 @@ class RecentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.viewModelScope.launch(Dispatchers.IO) {
             try {
-                binding.progressBar.visibility= View.VISIBLE
-                binding.recentRefresh.visibility=View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+                binding.recentRefresh.visibility = View.GONE
                 binding.recentRefresh.setOnRefreshListener {
                     if (Constants.checkConnectivity(requireContext())) {
                         Log.d("TAG", "onViewCreated: NetWorkAvailable")
+                        CoroutineScope(Dispatchers.Main).launch {
+                            displayRecent()
+                        }
                     }
                     binding.recentRefresh.isRefreshing = false
                 }
@@ -60,23 +67,44 @@ class RecentFragment : Fragment() {
     }
 
     private suspend fun displayRecent() {
-        val list = viewModel.readRecentMatches()
-        withContext(Dispatchers.Main) {
-            val liveDataList: MutableLiveData<List<Fixture>> =
-                MutableLiveData<List<Fixture>>().apply {
-                    value = list
+        val timegap = getTimegap()
+        val list = viewModel.readRecentMatches(timegap)
+        try {
+            withContext(Dispatchers.Main) {
+                if (view != null) { // check if the fragment's view is not null
+                    val liveDataList: MutableLiveData<List<Fixture>> =
+                        MutableLiveData<List<Fixture>>().apply {
+                            value = list
+                        }
+
+                    liveDataList.observe(viewLifecycleOwner) {
+                        val recyclerViewState =
+                            binding.recentMatchRv.layoutManager?.onSaveInstanceState()
+                        binding.recentMatchRv.layoutManager?.onRestoreInstanceState(
+                            recyclerViewState
+                        )
+
+                        val adapter = RecentMatchAdapter(requireContext(), viewModel)
+                        adapter.setDataset(it)
+                        binding.recentMatchRv.adapter = adapter
+                    }
+                    binding.recentRefresh.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
                 }
-
-            liveDataList.observe(viewLifecycleOwner){
-                val recyclerViewState=binding.recentMatchRv.layoutManager?.onSaveInstanceState()
-                binding.recentMatchRv.layoutManager?.onRestoreInstanceState(recyclerViewState)
-
-                val adapter= RecentMatchAdapter(requireContext(),viewModel)
-                adapter.setDataset(it)
-                binding.recentMatchRv.adapter=adapter
             }
-            binding.recentRefresh.visibility=View.VISIBLE
-            binding.progressBar.visibility= View.GONE
+        } catch (e: Exception) {
+            Log.d(TAG, "displayRecent: ${e.message}")
         }
+    }
+
+    private fun getTimegap(): String {
+        val today = Calendar.getInstance().time
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DATE, -28)
+        val upcomingTwoWeek = calendar.time
+
+        @SuppressLint("ConstantLocale")
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return "${formatter.format(upcomingTwoWeek)},${formatter.format(today)}"
     }
 }

@@ -20,6 +20,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tabPadding="6dp"
             app:tabIndicatorHeight="3.5dp"
+            app:tabTextColor="@color/colorTextPrimary"
+            app:tabSelectedTextColor="@color/colorPrimary"
             />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/searchViewPager"

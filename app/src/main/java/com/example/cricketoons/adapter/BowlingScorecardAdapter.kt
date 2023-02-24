@@ -56,10 +56,10 @@ class BowlingScorecardAdapter(val context: Context, val viewModel: ViewModel, va
                 Log.d(TAG, "onBindViewHolder: $e")
             }
             holder.overBowled.text=bowler.overs.toString()
-            holder.overMaiden.text=bowler.overs.toString()
+            holder.overMaiden.text=if (bowler.medians==null) "0" else bowler.medians.toString()
             holder.runGiven.text=bowler.runs.toString()
             holder.economy.text=bowler.rate.toString()
-            holder.wicketTaken.text=bowler.wickets.toString()
+            holder.wicketTaken.text=if(bowler.wickets==null) "0" else bowler.wickets.toString()
 
         }
     }

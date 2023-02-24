@@ -10,12 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cricketoons.R
 import com.example.cricketoons.adapter.BattingScorecardAdapter
 import com.example.cricketoons.adapter.BowlingScorecardAdapter
-import com.example.cricketoons.databinding.FragmentMatchDetailScorecardBinding
+import com.example.cricketoons.databinding.FragmentScoreboardBinding
 import com.example.cricketoons.model.apiFixture.Fixture
 import com.example.cricketoons.viewmodel.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ScorecardFragment(val fixture: Fixture) : Fragment() {
-    private var _binding: FragmentMatchDetailScorecardBinding? = null
+    private var _binding: FragmentScoreboardBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ViewModel by viewModels()
 
@@ -26,7 +30,7 @@ class ScorecardFragment(val fixture: Fixture) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMatchDetailScorecardBinding.inflate(inflater, container, false)
+        _binding = FragmentScoreboardBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,6 +41,14 @@ class ScorecardFragment(val fixture: Fixture) : Fragment() {
         binding.bowlingScoreRV.setHasFixedSize(true)
         binding.battingScoreRV.layoutManager = LinearLayoutManager(requireContext())
         binding.battingScoreRV.setHasFixedSize(true)
+        CoroutineScope(Dispatchers.IO).launch {
+            val localteamName = viewModel.getTeamNameFromRoom(fixture.localteam_id!!)
+            val visitorTeamName = viewModel.getTeamNameFromRoom(fixture.visitorteam_id!!)
+            withContext(Dispatchers.Main){
+                binding.teamOne.text=localteamName
+                binding.teamTwo.text=visitorTeamName
+            }
+        }
 
         displayScore()
         binding.teamOne.setOnClickListener {
@@ -58,7 +70,7 @@ class ScorecardFragment(val fixture: Fixture) : Fragment() {
 
         adapter.setDataset(batting)
         val bowling = fixture.bowling
-        val bowlingAdapter= BowlingScorecardAdapter(requireContext(),viewModel,localTeam)
+        val bowlingAdapter = BowlingScorecardAdapter(requireContext(), viewModel, localTeam)
         bowlingAdapter.setDataset(bowling)
         binding.battingScoreRV.adapter = adapter
         binding.bowlingScoreRV.adapter = bowlingAdapter
@@ -67,16 +79,16 @@ class ScorecardFragment(val fixture: Fixture) : Fragment() {
     private fun selectTeamTab() {
         if (localTeam) {
             binding.teamOne.isSelected = true
-            binding.teamOne.setBackgroundResource(R.color.colorOnSelect)
+            binding.teamOne.setBackgroundResource(R.color.colorSelected)
 
             binding.teamTwo.isSelected = false
-            binding.teamTwo.setBackgroundResource(R.color.colorBackground)
+            binding.teamTwo.setBackgroundResource(R.color.colorUnselectedText)
         } else {
             binding.teamTwo.isSelected = true
-            binding.teamTwo.setBackgroundResource(R.color.colorOnSelect)
+            binding.teamTwo.setBackgroundResource(R.color.colorSelected)
 
             binding.teamOne.isSelected = false
-            binding.teamOne.setBackgroundResource(R.color.colorBackground)
+            binding.teamOne.setBackgroundResource(R.color.colorUnselectedText)
         }
     }
 

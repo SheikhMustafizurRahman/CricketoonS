@@ -23,6 +23,8 @@ class TeamsAdapter(val context: Context, val viewModel: ViewModel) : RecyclerVie
         val teamCodeTV:TextView=view.findViewById(R.id.teamCode)
         val teamLogo:ImageView=view.findViewById(R.id.teamLogo)
         val teamCard:CardView= view.findViewById(R.id.cardView)
+        val teamrank:TextView =view.findViewById(R.id.rank)
+        val rankingpoint:TextView=view.findViewById(R.id.teamRating)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
@@ -46,6 +48,8 @@ class TeamsAdapter(val context: Context, val viewModel: ViewModel) : RecyclerVie
             bundle.putString("teamLogo",team.image_path)
             holder.teamCard.findNavController().navigate(R.id.teamDetailFragment,bundle)
         }
+        holder.teamrank.visibility=View.GONE
+        holder.rankingpoint.visibility=View.GONE
     }
 
     fun setDataset(it: List<TeamData>) {

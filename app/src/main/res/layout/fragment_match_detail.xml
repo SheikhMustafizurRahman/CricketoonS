@@ -193,7 +193,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/match_graphic_card"
         app:tabIndicatorHeight="3.5dp"
-        app:tabPadding="6dp" />
+        app:tabPadding="6dp"
+        app:tabTextColor="@color/colorTextPrimary"
+        app:tabSelectedTextColor="@color/colorPrimary"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/detailViewPager"
